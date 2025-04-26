@@ -33,15 +33,15 @@ import BaseDefinitions "mo:waterway-mops/BaseDefinitions";
 import DateTimeUtilities "mo:waterway-mops/DateTimeUtilities";
 
 /* ----- Queries ----- */
-import ProGolferQueries "queries/player_queries";
-import GolfCourseQueries "queries/fixture_queries";
-import TournamentQueries "queries/club_queries";
+import ProGolferQueries "queries/pro_golfer_queries";
+import GolfCourseQueries "queries/golf_course_queries";
+import TournamentQueries "queries/tournament_queries";
 
 /* ----- Commands ----- */
 
-import ProGolferCommands "commands/player_commands";
-import GolfCourseCommands "commands/league_commands";
-import TournamentCommands "commands/fixture_commands";
+import ProGolferCommands "commands/pro_golfer_commands";
+import GolfCourseCommands "commands/golf_course_commands";
+import TournamentCommands "commands/tournament_commands";
 
 import Environment "environment";
 import AppQueries "queries/app_queries";
