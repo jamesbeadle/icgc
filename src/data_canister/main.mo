@@ -33,18 +33,15 @@ import BaseDefinitions "mo:waterway-mops/BaseDefinitions";
 import DateTimeUtilities "mo:waterway-mops/DateTimeUtilities";
 
 /* ----- Queries ----- */
-import PlayerQueries "queries/player_queries";
-import FixtureQueries "queries/fixture_queries";
-import ClubQueries "queries/club_queries";
-import LeagueQueries "queries/league_queries";
-import SeasonQueries "queries/season_queries";
+import ProGolferQueries "queries/player_queries";
+import GolfCourseQueries "queries/fixture_queries";
+import TournamentQueries "queries/club_queries";
 
 /* ----- Commands ----- */
 
-import PlayerCommands "commands/player_commands";
-import LeagueCommands "commands/league_commands";
-import FixtureCommands "commands/fixture_commands";
-import ClubCommands "commands/club_commands";
+import ProGolferCommands "commands/player_commands";
+import GolfCourseCommands "commands/league_commands";
+import TournamentCommands "commands/fixture_commands";
 
 import Environment "environment";
 import AppQueries "queries/app_queries";
@@ -83,7 +80,6 @@ actor Self {
 
   public shared query ({ caller }) func getDataHashes(dto : AppQueries.GetDataHashes) : async Result.Result<AppQueries.DataHashes, Enums.Error> {
     assert callerAllowed(caller);
-
     return #ok(dataHashes);
   };
 
@@ -130,8 +126,8 @@ actor Self {
   public shared ({ caller }) func getCanisterInfo() : async Result.Result<CanisterQueries.Canister, Enums.Error> {
     assert not Principal.isAnonymous(caller);
     let dto : CanisterQueries.Canister = {
-      canisterId = CanisterIds.ICFC_DATA_CANISTER_ID;
-      canisterName = "ICFC Data Canister";
+      canisterId = CanisterIds.ICGC_DATA_CANISTER_ID;
+      canisterName = "ICGC Data Canister";
       canisterType = #Static;
       app = #GolfPad;
     };

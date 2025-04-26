@@ -1,6 +1,6 @@
 import Ids "mo:waterway-mops/Ids";
 import BaseDefinitions "mo:waterway-mops/BaseDefinitions";
-import ICFCEnums "mo:waterway-mops/ICFCEnums";
+import ICGCEnums "mo:waterway-mops/ICGCEnums";
 
 module UserQueries = {
 
@@ -8,7 +8,7 @@ module UserQueries = {
         principalId : Ids.PrincipalId;
     };
 
-    public type GetICFCLinkStatus = {
+    public type GetICGCLinkStatus = {
         principalId : Ids.PrincipalId;
     };
 
@@ -20,7 +20,7 @@ module UserQueries = {
         profilePictureType : Text;
         createDate : Int;
         displayName : Text;
-        membershipType : ICFCEnums.MembershipType;
+        membershipType : ICGCEnums.MembershipType;
         membershipClaims : [MembershipClaim];
         createdOn : Int;
         termsAgreed : Bool;
@@ -36,18 +36,18 @@ module UserQueries = {
         createDate : Int;
     };
 
-    public type GetICFCProfile = {
+    public type GetICGCProfile = {
         principalId : Ids.PrincipalId;
     };
-    public type GetICFCMembership = {
+    public type GetICGCMembership = {
         principalId : Ids.PrincipalId;
     };
 
-    public type ICFCProfile = {
+    public type ICGCProfile = {
         principalId : Ids.PrincipalId;
         username : Text;
         displayName : Text;
-        membershipType : ICFCEnums.MembershipType;
+        membershipType : ICGCEnums.MembershipType;
         membershipClaims : [MembershipClaim];
         createdOn : Int;
         profilePicture : ?Blob;
@@ -56,15 +56,15 @@ module UserQueries = {
         nationalityId : ?Ids.CountryId;
     };
 
-    public type ICFCLink = {
-        membershipType : ICFCEnums.MembershipType;
+    public type ICGCLink = {
+        membershipType : ICGCEnums.MembershipType;
         principalId : Ids.PrincipalId;
-        linkStatus : ICFCEnums.ICFCLinkStatus;
+        linkStatus : ICGCEnums.ICGCLinkStatus;
         dataHash : Text;
     };
 
     public type MembershipClaim = {
-        membershipType : ICFCEnums.MembershipType;
+        membershipType : ICGCEnums.MembershipType;
         purchasedOn : Int;
         expiresOn : ?Int;
     };
@@ -99,7 +99,7 @@ module UserQueries = {
         principalId : Text;
     };
 
-    public type GetICFCDataHash = {
+    public type GetICGCDataHash = {
         principalId : Ids.PrincipalId;
     };
 };

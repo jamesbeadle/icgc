@@ -236,7 +236,7 @@ module {
     public func getGolferHolePerformance(dto: {
     tournamentId: Types.TournamentId;
     year: Nat16;
-    golferId: Types.GolferId;
+    golferId: Types.ProGolferId;
     holeNumber: Nat8;
     par: Nat8;
 }) : Result.Result<{ score: Int }, Enums.Error> {

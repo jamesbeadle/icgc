@@ -16,7 +16,7 @@ module GolfCourseCommands {
     public type AddTournamentResult = {
         tournamentId: MopsGolfIds.TournamentId;
         year: Nat16;
-        golferId: MopsGolfIds.GolferId;
+        golferId: MopsGolfIds.ProGolferId;
     };
 
     public type UpdateTournamentStage = {

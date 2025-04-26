@@ -49,17 +49,17 @@
       const amountInE8s = convertToE8s(withdrawalInputAmount);
       await userStore.withdrawbackend(withdrawalAddress, amountInE8s);
       toasts.addToast( { 
-        message: "ICFC successfully withdrawn.",
+        message: "ICGC successfully withdrawn.",
         type: "success",
         duration: 2000,
       });
     } catch (error) {
       toasts.addToast({ 
-        message: "Error withdrawing ICFC.",
+        message: "Error withdrawing ICGC.",
         type: "error",
         duration: 4000,
       });
-      console.error("Error withdrawing ICFC:", error);
+      console.error("Error withdrawing ICGC:", error);
     } finally {
       cancelModal();
       isLoading = false;
@@ -67,12 +67,12 @@
   }
 </script>
 
-<Modal showModal={visible} onClose={closeModal} title="Withdraw ICFC">
+<Modal showModal={visible} onClose={closeModal} title="Withdraw ICGC">
   {#if isLoading}
     <LocalSpinner />
   {:else}
     <div class="p-4 mx-4">
-      <p>ICFC Balance: {backendBalanceFormatted}</p>
+      <p>ICGC Balance: {backendBalanceFormatted}</p>
       <div class="mt-4">
         <input type="text" class="backend-button" placeholder="Withdrawal Address" value={withdrawalAddress} />
       </div>

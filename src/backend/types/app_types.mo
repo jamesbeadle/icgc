@@ -1,8 +1,7 @@
 import List "mo:base/List";
 import Ids "mo:waterway-mops/Ids";
 import BaseTypes "mo:waterway-mops/BaseTypes";
-import ICFCEnums "mo:waterway-mops/ICFCEnums";
-import BaseDefinitions "mo:waterway-mops/BaseDefinitions";
+import ICGCEnums "mo:waterway-mops/ICGCEnums";
 import AppEnums "../enums/app_enums";
 
 module AppTypes {
@@ -25,7 +24,7 @@ module AppTypes {
   public type ICGCLink = {
     membershipType : AppEnums.MembershipType;
     principalId : Ids.PrincipalId;
-    linkStatus : ICFCEnums.ICFCLinkStatus;
+    linkStatus : ICGCEnums.ICGCLinkStatus;
     dataHash : Text;
   };
 

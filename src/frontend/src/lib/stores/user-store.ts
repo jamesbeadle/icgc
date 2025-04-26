@@ -12,7 +12,7 @@ import { UserService } from "$lib/services/user-service";
 import type {
   CombinedProfile,
   SetFavouriteClub,
-  ICFCLinkStatus,
+  ICGCLinkStatus,
 } from "../../../../declarations/backend/backend.did";
 import { userIdCreatedStore } from "$lib/stores/user-control-store";
 import { get } from "svelte/store";
@@ -171,15 +171,15 @@ function createUserStore() {
     return new UserService().getUser();
   }
 
-  async function getICFCLinkStatus(): Promise<ICFCLinkStatus | undefined> {
-    return new UserService().getICFCLinkStatus();
+  async function getICGCLinkStatus(): Promise<ICGCLinkStatus | undefined> {
+    return new UserService().getICGCLinkStatus();
   }
 
-  async function linkICFCProfile(): Promise<{
+  async function linkICGCProfile(): Promise<{
     success: boolean;
     alreadyExists?: boolean;
   }> {
-    return new UserService().linkICFCProfile();
+    return new UserService().linkICGCProfile();
   }
 
   return {
@@ -191,8 +191,8 @@ function createUserStore() {
     withdrawICGC,
     getICGCBalance,
     getUser,
-    getICFCLinkStatus,
-    linkICFCProfile,
+    getICGCLinkStatus,
+    linkICGCProfile,
   };
 }
 

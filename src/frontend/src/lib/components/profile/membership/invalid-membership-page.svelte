@@ -37,23 +37,23 @@
                 </div>
                 <div>
                     <h3 class="text-xl text-white">Membership Required</h3>
-                    <p class="mt-1 text-white/70">Your ICFC membership has expired or has not been set up.</p>
+                    <p class="mt-1 text-white/70">Your ICGC membership has expired or has not been set up.</p>
                 </div>
             </div>
         </div>
         <div class="mb-8 border-b border-BrandGreen">
-            <h1 class="mb-2 text-4xl font-bold text-white">ICFC Membership Profile</h1>
+            <h1 class="mb-2 text-4xl font-bold text-white">ICGC Membership Profile</h1>
         </div>
         <div class="space-y-4 text-gray-300">
-            <p class="text-lg">Only ICFC ecosystem owners can play Openbackend.</p>
+            <p class="text-lg">Only ICGC ecosystem member owners can use this platform.</p>
             <p class="text-lg">
                 Please visit 
                 <a 
-                    href="https://icfc.app/membership" 
+                    href="https://icgc.golf/membership" 
                     target="_blank" 
                     class="underline transition-colors text-BrandGreen hover:text-BrandGreen/80"
                 >
-                    icfc.app
+                    icgc.golf
                 </a> 
                 to renew or setup your membership and to link your Openbackend principal ID:
             </p>

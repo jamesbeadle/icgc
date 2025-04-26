@@ -3,10 +3,10 @@ import AppEnums "../enums/app_enums";
 
 module UserCommands = {
 
-    public type LinkICFCProfile = {
+    public type LinkICGCProfile = {
         principalId : Ids.PrincipalId;
-        icfcPrincipalId : Ids.PrincipalId;
-        icfcMembershipType : AppEnums.MembershipType;
+        icgcPrincipalId : Ids.PrincipalId;
+        icgcMembershipType : AppEnums.MembershipType;
     };
 
     public type MembershipClaim = {
@@ -15,7 +15,7 @@ module UserCommands = {
         expiresOn : ?Int;
     };
 
-    public type ICFCProfile = {
+    public type ICGCProfile = {
         principalId : Ids.PrincipalId;
         username : Text;
         displayName : Text;

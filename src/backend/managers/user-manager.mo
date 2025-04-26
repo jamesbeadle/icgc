@@ -7,7 +7,7 @@ import Principal "mo:base/Principal";
 import Buffer "mo:base/Buffer";
 import Ids "mo:waterway-mops/Ids";
 import Enums "mo:waterway-mops/Enums";
-import IcfcEnums "mo:waterway-mops/ICFCEnums";
+import IcgcEnums "mo:waterway-mops/ICGCEnums";
 import Management "mo:waterway-mops/Management";
 import CanisterUtilities "mo:waterway-mops/CanisterUtilities";
 import CanisterIds "mo:waterway-mops/CanisterIds";
@@ -23,16 +23,12 @@ import Nat16 "mo:base/Nat16";
 import Bool "mo:base/Bool";
 import UserQueries "../queries/user_queries";
 import AppTypes "../types/app_types";
-import LeaderboardQueries "../queries/leaderboard_queries";
 import UserCommands "../commands/user_commands";
-import PickTeamUtilities "../utilities/pick_team_utilities";
-import ManagerCanister "../canister_definitions/manager-canister";
-import DataCanister "canister:data_canister";
 import SHA224 "mo:waterway-mops/SHA224";
-import IcfcTypes "mo:waterway-mops/ICFCTypes";
-import ICFCCommands "../commands/icfc_commands";
+import IcgcTypes "mo:waterway-mops/ICGCTypes";
+import ICGCCommands "../commands/icgc_commands";
 import Environment "../Environment";
-import ICFCQueries "../queries/icfc_queries";
+import ICGCQueries "../queries/icgc_queries";
 
 module {
 
@@ -46,7 +42,7 @@ module {
     private var totalManagers : Nat = 0;
     private var activeManagerCanisterId : Ids.CanisterId = "";
 
-    private var userICFCLinks : TrieMap.TrieMap<Ids.PrincipalId, AppTypes.ICFCLink> = TrieMap.TrieMap<Ids.PrincipalId, AppTypes.ICFCLink>(Text.equal, Text.hash);
+    private var userICGCLinks : TrieMap.TrieMap<Ids.PrincipalId, AppTypes.ICGCLink> = TrieMap.TrieMap<Ids.PrincipalId, AppTypes.ICGCLink>(Text.equal, Text.hash);
 
     //Getters
 
@@ -85,24 +81,24 @@ module {
         };
       };
     };
-    public func getICFCDataHash(dto : UserQueries.GetICFCDataHash) : Result.Result<Text, Enums.Error> {
-      let icfcLink : ?UserQueries.ICFCLink = userICFCLinks.get(dto.principalId);
-      switch (icfcLink) {
+    public func getICGCDataHash(dto : UserQueries.GetICGCDataHash) : Result.Result<Text, Enums.Error> {
+      let icgcLink : ?UserQueries.ICGCLink = userICGCLinks.get(dto.principalId);
+      switch (icgcLink) {
         case (null) {
           return #err(#NotFound);
         };
-        case (?foundICFCLink) {
-          return #ok(foundICFCLink.dataHash);
+        case (?foundICGCLink) {
+          return #ok(foundICGCLink.dataHash);
         };
       };
     };
 
     public func getCombinedProfile(dto : UserQueries.GetProfile) : async Result.Result<UserQueries.CombinedProfile, Enums.Error> {
 
-      let icfcProfileResult = await getICFCProfile(dto);
+      let icgcProfileResult = await getICGCProfile(dto);
 
-      switch (icfcProfileResult) {
-        case (#ok(icfcProfile)) {
+      switch (icgcProfileResult) {
+        case (#ok(icgcProfile)) {
 
           let userManagerCanisterId = managerCanisterIds.get(dto.principalId);
 
@@ -118,24 +114,24 @@ module {
                   return #err(#NotFound);
                 };
                 case (?foundManager) {
-                  switch (icfcProfileResult) {
-                    case (#ok icfcProfile) {
+                  switch (icgcProfileResult) {
+                    case (#ok icgcProfile) {
                       let profileDTO : UserQueries.CombinedProfile = {
                         principalId = dto.principalId;
-                        username = icfcProfile.username;
+                        username = icgcProfile.username;
                         termsAccepted = foundManager.termsAccepted;
-                        profilePicture = icfcProfile.profilePicture;
+                        profilePicture = icgcProfile.profilePicture;
                         profilePictureType = foundManager.profilePictureType;
-                        favouriteClubId = icfcProfile.favouriteClubId;
+                        favouriteClubId = icgcProfile.favouriteClubId;
                         createDate = foundManager.createDate;
-                        favouriteLeagueId = icfcProfile.favouriteLeagueId;
-                        membershipClaims = icfcProfile.membershipClaims;
-                        membershipExpiryTime = icfcProfile.membershipExpiryTime;
-                        membershipType = icfcProfile.membershipType;
-                        nationalityId = icfcProfile.nationalityId;
-                        termsAgreed = icfcProfile.termsAgreed;
-                        displayName = icfcProfile.displayName;
-                        createdOn = icfcProfile.createdOn;
+                        favouriteLeagueId = icgcProfile.favouriteLeagueId;
+                        membershipClaims = icgcProfile.membershipClaims;
+                        membershipExpiryTime = icgcProfile.membershipExpiryTime;
+                        membershipType = icgcProfile.membershipType;
+                        nationalityId = icgcProfile.nationalityId;
+                        termsAgreed = icgcProfile.termsAgreed;
+                        displayName = icgcProfile.displayName;
+                        createdOn = icgcProfile.createdOn;
                       };
                       return #ok(profileDTO);
                     };
@@ -148,13 +144,13 @@ module {
 
             };
             case (null) {
-              let icfcLink : ?UserQueries.ICFCLink = userICFCLinks.get(dto.principalId);
-              switch (icfcLink) {
+              let icgcLink : ?UserQueries.ICGCLink = userICGCLinks.get(dto.principalId);
+              switch (icgcLink) {
                 case (null) {
                   return #err(#NotFound);
                 };
-                case (?foundICFCLink) {
-                  let res = await createNewManager(foundICFCLink, icfcProfile);
+                case (?foundICGCLink) {
+                  let res = await createNewManager(foundICGCLink, icgcProfile);
                   switch (res) {
                     case (#err(error)) {
                       return #err(error);
@@ -162,20 +158,20 @@ module {
                     case (#ok(newManager)) {
                       let profileDTO : UserQueries.CombinedProfile = {
                         principalId = dto.principalId;
-                        username = icfcProfile.username;
+                        username = icgcProfile.username;
                         termsAccepted = newManager.termsAccepted;
                         profilePicture = newManager.profilePicture;
                         profilePictureType = newManager.profilePictureType;
                         favouriteClubId = newManager.favouriteClubId;
                         createDate = newManager.createDate;
-                        favouriteLeagueId = icfcProfile.favouriteLeagueId;
-                        membershipClaims = icfcProfile.membershipClaims;
-                        membershipExpiryTime = icfcProfile.membershipExpiryTime;
-                        membershipType = icfcProfile.membershipType;
-                        nationalityId = icfcProfile.nationalityId;
-                        termsAgreed = icfcProfile.termsAgreed;
-                        displayName = icfcProfile.displayName;
-                        createdOn = icfcProfile.createdOn;
+                        favouriteLeagueId = icgcProfile.favouriteLeagueId;
+                        membershipClaims = icgcProfile.membershipClaims;
+                        membershipExpiryTime = icgcProfile.membershipExpiryTime;
+                        membershipType = icgcProfile.membershipType;
+                        nationalityId = icgcProfile.nationalityId;
+                        termsAgreed = icgcProfile.termsAgreed;
+                        displayName = icgcProfile.displayName;
+                        createdOn = icgcProfile.createdOn;
                       };
                       return #ok(profileDTO);
                     };
@@ -195,49 +191,49 @@ module {
 
     };
 
-    public func getUserICFCLinkStatus(managerPrincipalId : Ids.PrincipalId) : async Result.Result<IcfcEnums.ICFCLinkStatus, Enums.Error> {
-      let icfcLink : ?UserQueries.ICFCLink = userICFCLinks.get(managerPrincipalId);
+    public func getUserICGCLinkStatus(managerPrincipalId : Ids.PrincipalId) : async Result.Result<IcgcEnums.ICGCLinkStatus, Enums.Error> {
+      let icgcLink : ?UserQueries.ICGCLink = userICGCLinks.get(managerPrincipalId);
 
-      switch (icfcLink) {
+      switch (icgcLink) {
         case (null) {
           return #err(#NotFound);
         };
-        case (?foundICFCLink) {
-          return #ok(foundICFCLink.linkStatus);
+        case (?foundICGCLink) {
+          return #ok(foundICGCLink.linkStatus);
         };
       };
     };
 
-    public func getICFCProfile(dto : UserQueries.GetICFCProfile) : async Result.Result<UserQueries.ICFCProfile, Enums.Error> {
-      let icfcLink : ?UserQueries.ICFCLink = userICFCLinks.get(dto.principalId);
+    public func getICGCProfile(dto : UserQueries.GetICGCProfile) : async Result.Result<UserQueries.ICGCProfile, Enums.Error> {
+      let icgcLink : ?UserQueries.ICGCLink = userICGCLinks.get(dto.principalId);
 
-      switch (icfcLink) {
+      switch (icgcLink) {
         case (null) {
           return #err(#NotFound);
         };
-        case (?icfcLink) {
+        case (?icgcLink) {
 
-          let icfc_canister = actor (CanisterIds.ICFC_BACKEND_CANISTER_ID) : actor {
-            getICFCProfile : UserQueries.GetICFCProfile -> async Result.Result<UserQueries.ICFCProfile, Enums.Error>;
+          let icgc_canister = actor (CanisterIds.ICGC_BACKEND_CANISTER_ID) : actor {
+            getICGCProfile : UserQueries.GetICGCProfile -> async Result.Result<UserQueries.ICGCProfile, Enums.Error>;
           };
 
-          let icfc_dto : UserQueries.GetICFCProfile = {
-            principalId = icfcLink.principalId;
+          let icgc_dto : UserQueries.GetICGCProfile = {
+            principalId = icgcLink.principalId;
           };
 
-          return await icfc_canister.getICFCProfile(icfc_dto);
+          return await icgc_canister.getICGCProfile(icgc_dto);
         };
       };
     };
 
-    public func getUserICFCMembership(dto : UserQueries.GetICFCMembership) : async Result.Result<IcfcEnums.MembershipType, Enums.Error> {
-      let icfcLink : ?UserQueries.ICFCLink = userICFCLinks.get(dto.principalId);
-      switch (icfcLink) {
+    public func getUserICGCMembership(dto : UserQueries.GetICGCMembership) : async Result.Result<IcgcEnums.MembershipType, Enums.Error> {
+      let icgcLink : ?UserQueries.ICGCLink = userICGCLinks.get(dto.principalId);
+      switch (icgcLink) {
         case (null) {
           return #err(#NotFound);
         };
-        case (?foundICFCLink) {
-          return #ok(foundICFCLink.membershipType);
+        case (?foundICGCLink) {
+          return #ok(foundICGCLink.membershipType);
         };
       };
     };
@@ -252,8 +248,8 @@ module {
 
     public func getTotalManagers() : Result.Result<Nat, Enums.Error> {
       var count = 0;
-      for (icfcLink in userICFCLinks.vals()) {
-        if (icfcLink.linkStatus == #Verified) {
+      for (icgcLink in userICGCLinks.vals()) {
+        if (icgcLink.linkStatus == #Verified) {
           count := count + 1;
         };
       };
@@ -274,57 +270,57 @@ module {
       return false;
     };
 
-    public func createICFCLink(dto : ICFCCommands.NotifyAppofLink) : async Result.Result<(), Enums.Error> {
-      let icfcLink : AppTypes.ICFCLink = {
-        principalId = dto.icfcPrincipalId;
+    public func createICGCLink(dto : ICGCCommands.NotifyAppofLink) : async Result.Result<(), Enums.Error> {
+      let icgcLink : AppTypes.ICGCLink = {
+        principalId = dto.icgcPrincipalId;
         linkStatus = #PendingVerification;
         dataHash = await SHA224.getRandomHash();
         membershipType = dto.membershipType;
       };
-      userICFCLinks.put(dto.subAppUserPrincipalId, icfcLink);
+      userICGCLinks.put(dto.subAppUserPrincipalId, icgcLink);
       return #ok();
     };
 
-    public func removeICFCLink(dto : ICFCCommands.NotifyAppofRemoveLink) : async Result.Result<(), Enums.Error> {
-      for (icfcLink in userICFCLinks.entries()) {
-        if (icfcLink.1.principalId == dto.icfcPrincipalId) {
-          let _ = userICFCLinks.remove(icfcLink.0);
+    public func removeICGCLink(dto : ICGCCommands.NotifyAppofRemoveLink) : async Result.Result<(), Enums.Error> {
+      for (icgcLink in userICGCLinks.entries()) {
+        if (icgcLink.1.principalId == dto.icgcPrincipalId) {
+          let _ = userICGCLinks.remove(icgcLink.0);
           return #ok();
         };
       };
       return #err(#NotFound);
     };
 
-    public func verifyICFCLink(dto : ICFCCommands.VerifyICFCProfile) : async Result.Result<(), Enums.Error> {
-      let icfcLink : ?AppTypes.ICFCLink = userICFCLinks.get(dto.principalId);
+    public func verifyICGCLink(dto : ICGCCommands.VerifyICGCProfile) : async Result.Result<(), Enums.Error> {
+      let icgcLink : ?AppTypes.ICGCLink = userICGCLinks.get(dto.principalId);
 
-      switch (icfcLink) {
+      switch (icgcLink) {
         case (null) {
           return #err(#NotFound);
         };
-        case (?foundICFCLink) {
+        case (?foundICGCLink) {
 
-          let icfc_canister = actor (Environment.ICFC_BACKEND_CANISTER_ID) : actor {
-            verifySubApp : ICFCCommands.VerifySubApp -> async Result.Result<(), Enums.Error>;
+          let icgc_canister = actor (Environment.ICGC_BACKEND_CANISTER_ID) : actor {
+            verifySubApp : ICGCCommands.VerifySubApp -> async Result.Result<(), Enums.Error>;
           };
 
-          let verifySubAppDTO : ICFCCommands.VerifySubApp = {
+          let verifySubAppDTO : ICGCCommands.VerifySubApp = {
             subAppUserPrincipalId = dto.principalId;
             subApp = #GolfPad;
-            icfcPrincipalId = foundICFCLink.principalId;
+            icgcPrincipalId = foundICGCLink.principalId;
           };
 
-          let result = await icfc_canister.verifySubApp(verifySubAppDTO);
+          let result = await icgc_canister.verifySubApp(verifySubAppDTO);
           switch (result) {
             case (#ok(_)) {
 
-              let _ = userICFCLinks.put(
+              let _ = userICGCLinks.put(
                 dto.principalId,
                 {
-                  principalId = foundICFCLink.principalId;
+                  principalId = foundICGCLink.principalId;
                   linkStatus = #Verified;
                   dataHash = await SHA224.getRandomHash();
-                  membershipType = foundICFCLink.membershipType;
+                  membershipType = foundICGCLink.membershipType;
                 },
               );
 
@@ -394,20 +390,20 @@ module {
       };
     };
 
-    public func updateICFCHash(dto : ICFCCommands.UpdateICFCProfile) : async Result.Result<(), Enums.Error> {
-      let icfcLink : ?AppTypes.ICFCLink = userICFCLinks.get(dto.subAppUserPrincipalId);
+    public func updateICGCHash(dto : ICGCCommands.UpdateICGCProfile) : async Result.Result<(), Enums.Error> {
+      let icgcLink : ?AppTypes.ICGCLink = userICGCLinks.get(dto.subAppUserPrincipalId);
 
-      switch (icfcLink) {
+      switch (icgcLink) {
         case (null) {
           return #err(#NotFound);
         };
-        case (?foundICFCLink) {
+        case (?foundICGCLink) {
           let newHash = await SHA224.getRandomHash();
-          let _ = userICFCLinks.put(
+          let _ = userICGCLinks.put(
             dto.subAppUserPrincipalId,
             {
-              principalId = foundICFCLink.principalId;
-              linkStatus = foundICFCLink.linkStatus;
+              principalId = foundICGCLink.principalId;
+              linkStatus = foundICGCLink.linkStatus;
               dataHash = newHash;
               membershipType = dto.membershipType;
             },
@@ -417,14 +413,14 @@ module {
       };
     };
 
-    public func getICFCProfileLinks() : [ICFCQueries.ICFCLinks] {
-      let icfcLinks = Iter.toArray(userICFCLinks.entries());
-      var result : [ICFCQueries.ICFCLinks] = [];
-      for (icfcLink in Iter.fromArray(icfcLinks)) {
-        let link : ICFCQueries.ICFCLinks = {
-          icfcPrincipalId = icfcLink.1.principalId;
-          subAppUserPrincipalId = icfcLink.0;
-          membershipType = icfcLink.1.membershipType;
+    public func getICGCProfileLinks() : [ICGCQueries.ICGCLinks] {
+      let icgcLinks = Iter.toArray(userICGCLinks.entries());
+      var result : [ICGCQueries.ICGCLinks] = [];
+      for (icgcLink in Iter.fromArray(icgcLinks)) {
+        let link : ICGCQueries.ICGCLinks = {
+          icgcPrincipalId = icgcLink.1.principalId;
+          subAppUserPrincipalId = icgcLink.0;
+          membershipType = icgcLink.1.membershipType;
           subApp = #GolfPad;
         };
         result := Array.append(result, [link]);
@@ -433,8 +429,8 @@ module {
     };
 
     // Temp Test function
-    public func getAllUserICFCLinks() : async [(Ids.PrincipalId, AppTypes.ICFCLink)] {
-      return Iter.toArray(userICFCLinks.entries());
+    public func getAllUserICGCLinks() : async [(Ids.PrincipalId, AppTypes.ICGCLink)] {
+      return Iter.toArray(userICGCLinks.entries());
     };
 
     //Private data modification functions
@@ -512,17 +508,17 @@ module {
       activeManagerCanisterId := stable_active_manager_canister_id;
     };
 
-    public func getStableUserICFCLinks() : [(Ids.PrincipalId, AppTypes.ICFCLink)] {
-      return Iter.toArray(userICFCLinks.entries());
+    public func getStableUserICGCLinks() : [(Ids.PrincipalId, AppTypes.ICGCLink)] {
+      return Iter.toArray(userICGCLinks.entries());
     };
 
-    public func setStableUserICFCLinks(stable_user_icfc_linkss : [(Ids.PrincipalId, AppTypes.ICFCLink)]) : () {
-      let linkMap : TrieMap.TrieMap<Ids.PrincipalId, AppTypes.ICFCLink> = TrieMap.TrieMap<Ids.PrincipalId, AppTypes.ICFCLink>(Text.equal, Text.hash);
+    public func setStableUserICGCLinks(stable_user_icgc_linkss : [(Ids.PrincipalId, AppTypes.ICGCLink)]) : () {
+      let linkMap : TrieMap.TrieMap<Ids.PrincipalId, AppTypes.ICGCLink> = TrieMap.TrieMap<Ids.PrincipalId, AppTypes.ICGCLink>(Text.equal, Text.hash);
 
-      for (link in Iter.fromArray(stable_user_icfc_linkss)) {
+      for (link in Iter.fromArray(stable_user_icgc_linkss)) {
         linkMap.put(link);
       };
-      userICFCLinks := linkMap;
+      userICGCLinks := linkMap;
     };
 
   };

@@ -20,32 +20,32 @@
   });
 
   async function checkMembership(){
-    loadingMessage = "Checking ICFC Link Status";
-    await checkICFCLinkStatus();
+    loadingMessage = "Checking ICGC Link Status";
+    await checkICGCLinkStatus();
   }
 
-  async function checkICFCLinkStatus(){
+  async function checkICGCLinkStatus(){
     isLoading = true;
     try {
       const principalId = get(authStore).identity?.getPrincipal().toString();
       if (!principalId) return;
       
-      const icfcLinkStatus = await userStore.getICFCLinkStatus();
-      console.log('icfcLinkStatus', icfcLinkStatus);
-      if (icfcLinkStatus) {
-        if ('PendingVerification' in icfcLinkStatus) {
+      const icgcLinkStatus = await userStore.getICGCLinkStatus();
+      console.log('icgcLinkStatus', icgcLinkStatus);
+      if (icgcLinkStatus) {
+        if ('PendingVerification' in icgcLinkStatus) {
           notLinked = false;
           toasts.addToast({
             type: "info",
-            message: "ICFC Membership Pending Verification",
+            message: "ICGC Membership Pending Verification",
             duration: 4000,
           });
-        } else if ('Verified' in icfcLinkStatus) {
+        } else if ('Verified' in icgcLinkStatus) {
           membershipLinked = true;
           notLinked = false;
           toasts.addToast({
             type: "success",
-            message: "ICFC Membership Linked",
+            message: "ICGC Membership Linked",
             duration: 4000,
           })
           userIdCreatedStore.set({ data: principalId, certified: true });
@@ -55,15 +55,15 @@
             notLinked = true;
             toasts.addToast({
               type: "error",
-              message: "Please Start ICFC Membership Link Process",
+              message: "Please Start ICGC Membership Link Process",
               duration: 4000,
           })
       }
     } catch (error) {
-      console.error("Error checking ICFC link status:", error);
+      console.error("Error checking ICGC link status:", error);
       toasts.addToast({
         type: "error",
-        message: "Error Checking ICFC Link Status",
+        message: "Error Checking ICGC Link Status",
         duration: 4000,
       });
     } finally {
@@ -71,11 +71,11 @@
     }
   }
 
-  async function handleLinkICFCProfile(){
+  async function handleLinkICGCProfile(){
     try {
       isLoading = true;
-      loadingMessage = "Linking ICFC Membership";
-      const result = await userStore.linkICFCProfile();
+      loadingMessage = "Linking ICGC Membership";
+      const result = await userStore.linkICGCProfile();
       console.log('Link result:', result);
       
       if (result.success) {
@@ -84,30 +84,30 @@
         userIdCreatedStore.set({ data: principalId, certified: true });
         toasts.addToast({
           type: "success",
-          message: "ICFC Membership Linked",
+          message: "ICGC Membership Linked",
           duration: 5000,
         });
         window.location.href = "/";
       } else if (result.alreadyExists) {
         toasts.addToast({
           type: "info",
-          message: "This Principal ID is already linked to an ICFC Membership",
+          message: "This Principal ID is already linked to an ICGC Membership",
           duration: 4000,
         });
-        loadingMessage = "Re-checking ICFC Link Status";
+        loadingMessage = "Re-checking ICGC Link Status";
         await checkMembership();
       } else {
         toasts.addToast({
           type: "error",
-          message: "Failed to link ICFC Membership",
+          message: "Failed to link ICGC Membership",
           duration: 5000,
         });
       }
     } catch (error) {
-      console.error("Error linking ICFC Membership:", error);
+      console.error("Error linking ICGC Membership:", error);
       toasts.addToast({
         type: "error",
-        message: "Failed to link ICFC Membership",
+        message: "Failed to link ICGC Membership",
         duration: 5000,
       });
     } finally {
@@ -123,28 +123,28 @@
   <div class="flex-1 w-full p-6 mx-auto">
     <div class="p-8 rounded-lg shadow-xl bg-gray-900/50">
       <div class="mb-8 border-b border-BrandGreen">
-        <h1 class="mb-2 text-4xl font-bold text-white">ICFC Membership Profile</h1>
+        <h1 class="mb-2 text-4xl font-bold text-white">ICGC Membership Profile</h1>
       </div>
       <div class="space-y-6 text-gray-300">
         <p class="text-lg">
-          Openbackend is free to play for ICFC owners who have claimed their membership through 
+          Openbackend is free to play for ICGC owners who have claimed their membership through 
           <a 
-            href="https://icfc.app/membership" 
+            href="https://icgc.app/membership" 
             target="_blank" 
             class="underline transition-colors text-BrandGreen hover:text-BrandGreen/80"
           >
-            icfc.app
+            icgc.app
           </a>.
         </p>
         <p class="mb-4 text-lg">
-          Please link your Openbackend principal ID within your ICFC profile to play and then click the button below to refresh your status.
+          Please link your Openbackend principal ID within your ICGC profile to play and then click the button below to refresh your status.
         </p>
         <div class="mb-6">
           <CopyPrincipal  bgColor="gray" borderColor="white"/>
         </div>
         {#if !notLinked}
           <p class="px-2 mb-4 text-lg text-BrandGreen">
-            Your ICFC membership is pending verification. Please click the button below to finalize the linking process.
+            Your ICGC membership is pending verification. Please click the button below to finalize the linking process.
           </p>
         {/if}
         <div class="flex justify-center pt-4">
@@ -158,9 +158,9 @@
           {:else}
             <button 
               class="backend-button default-button "
-              onclick={handleLinkICFCProfile}
+              onclick={handleLinkICGCProfile}
             >
-              <span>Link ICFC Membership</span>
+              <span>Link ICGC Membership</span>
             </button>
           {/if}
         </div>

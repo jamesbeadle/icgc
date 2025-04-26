@@ -3,7 +3,7 @@ import { isError } from "$lib/utils/Helpers";
 import { authStore } from "$lib/stores/auth-store";
 import type {
   CombinedProfile,
-  ICFCLinkStatus,
+  ICGCLinkStatus,
   Result,
 } from "../../../../declarations/backend/backend.did";
 
@@ -27,23 +27,23 @@ export class UserService {
     }
   }
 
-  async getICFCLinkStatus(): Promise<ICFCLinkStatus | undefined> {
+  async getICGCLinkStatus(): Promise<ICGCLinkStatus | undefined> {
     try {
       const identityActor: any = await ActorFactory.createIdentityActor(
         authStore,
         process.env.OPENbackend_BACKEND_CANISTER_ID ?? "",
       );
-      const result: any = await identityActor.getICFCLinkStatus();
-      console.log("ICFC Link Status", result);
+      const result: any = await identityActor.getICGCLinkStatus();
+      console.log("ICGC Link Status", result);
       if (isError(result)) return undefined;
       return result.ok;
     } catch (error) {
-      console.error("Error checking ICFC link status:", error);
+      console.error("Error checking ICGC link status:", error);
       return undefined;
     }
   }
 
-  async linkICFCProfile(): Promise<{
+  async linkICGCProfile(): Promise<{
     success: boolean;
     alreadyExists?: boolean;
   }> {
@@ -52,8 +52,8 @@ export class UserService {
         authStore,
         process.env.OPENbackend_BACKEND_CANISTER_ID ?? "",
       );
-      const result: Result = await identityActor.linkICFCProfile();
-      console.log("Link ICFC result:", result);
+      const result: Result = await identityActor.linkICGCProfile();
+      console.log("Link ICGC result:", result);
 
       if ("err" in result) {
         if ("AlreadyExists" in result.err) {
@@ -64,7 +64,7 @@ export class UserService {
 
       return { success: true, alreadyExists: false };
     } catch (error) {
-      console.error("Error linking ICFC profile:", error);
+      console.error("Error linking ICGC profile:", error);
       return { success: false, alreadyExists: false };
     }
   }

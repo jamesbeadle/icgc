@@ -474,21 +474,11 @@ actor class Self() = this {
     assert not Principal.isAnonymous(caller);
     // TODO: Check caller is a member
 
-    let data_canister = actor (CanisterIds.ICFC_DATA_CANISTER_ID) : actor {
+    let data_canister = actor (CanisterIds.ICGC_DATA_CANISTER_ID) : actor {
       getClubs : (dto : ClubQueries.GetClubs) -> async Result.Result<ClubQueries.Clubs, Enums.Error>;
     };
     return await data_canister.getClubs(dto);
   };
-
-  // public shared ({ caller }) func getCountries(dto : AppQueries.GetCountries) : async Result.Result<AppQueries.Countries, Enums.Error> {
-  //   assert not Principal.isAnonymous(caller);
-  //   // TODO: Check caller is a member
-
-  //   let data_canister = actor (CanisterIds.ICFC_DATA_CANISTER_ID) : actor {
-  //     getCountries : (dto : AppQueries.GetCountries) -> async Result.Result<AppQueries.Countries, Enums.Error>;
-  //   };
-  //   return await data_canister.getCountries(dto);
-  // };
 
   //System Backup and Upgrade Functions:
 
@@ -603,7 +593,7 @@ actor class Self() = this {
     let profileCanisterIds = profileManager.getStableUniqueCanisterIds();
     for (canisterId in Iter.fromArray(profileCanisterIds)) {
       let dto : CanisterQueries.Canister = {
-        app = #ICFC;
+        app = #ICGC;
         canisterId = canisterId;
         canisterType = #Dynamic;
         canisterName = "Profile Canister";
@@ -616,17 +606,17 @@ actor class Self() = this {
     var backend_dto : CanisterQueries.Canister = {
       canisterId = CanisterIds.ICGC_BACKEND_CANISTER_ID;
       canisterType = #Static;
-      canisterName = "ICFC Backend Canister";
-      app = #ICFC;
+      canisterName = "ICGC Backend Canister";
+      app = #ICGC;
     };
     projectCanisters := Array.append<CanisterQueries.Canister>(projectCanisters, [backend_dto]);
 
     // frontend canister
     let frontend_dto : CanisterQueries.Canister = {
-      canisterId = Environment.ICFC_FRONTEND_CANISTER_ID;
+      canisterId = Environment.ICGC_FRONTEND_CANISTER_ID;
       canisterType = #Static;
-      canisterName = "ICFC Frontend Canister";
-      app = #ICFC;
+      canisterName = "ICGC Frontend Canister";
+      app = #ICGC;
     };
 
     projectCanisters := Array.append<CanisterQueries.Canister>(projectCanisters, [frontend_dto]);
