@@ -5,14 +5,14 @@ import type {
   CombinedProfile,
   ICFCLinkStatus,
   Result,
-} from "../../../../declarations/OpenFPL_backend/OpenFPL_backend.did";
+} from "../../../../declarations/backend/backend.did";
 
 export class UserService {
   async getUser(): Promise<CombinedProfile | undefined> {
     try {
       const identityActor: any = await ActorFactory.createIdentityActor(
         authStore,
-        process.env.OPENFPL_BACKEND_CANISTER_ID ?? "",
+        process.env.OPENbackend_BACKEND_CANISTER_ID ?? "",
       );
       const result: any = await identityActor.getProfile();
       console.log("profile result in service", result);
@@ -31,7 +31,7 @@ export class UserService {
     try {
       const identityActor: any = await ActorFactory.createIdentityActor(
         authStore,
-        process.env.OPENFPL_BACKEND_CANISTER_ID ?? "",
+        process.env.OPENbackend_BACKEND_CANISTER_ID ?? "",
       );
       const result: any = await identityActor.getICFCLinkStatus();
       console.log("ICFC Link Status", result);
@@ -50,7 +50,7 @@ export class UserService {
     try {
       const identityActor: any = await ActorFactory.createIdentityActor(
         authStore,
-        process.env.OPENFPL_BACKEND_CANISTER_ID ?? "",
+        process.env.OPENbackend_BACKEND_CANISTER_ID ?? "",
       );
       const result: Result = await identityActor.linkICFCProfile();
       console.log("Link ICFC result:", result);
@@ -69,13 +69,4 @@ export class UserService {
     }
   }
 
-  /* // TODO
-  async getUserIFCFMembership(): Promise<ICFCMembershipDTO | undefined> {
-    const identityActor: any = await ActorFactory.createIdentityActor(
-      authStore,
-      process.env.OPENFPL_BACKEND_CANISTER_ID ?? "",
-    );
-    return await identityActor.getUserIFCFMembership();
-  }
-    */
 }

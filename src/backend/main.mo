@@ -25,7 +25,7 @@ import CanisterQueries "mo:waterway-mops/canister-management/CanisterQueries";
 import CanisterManager "mo:waterway-mops/canister-management/CanisterManager";
 import CanisterCommands "mo:waterway-mops/canister-management/CanisterCommands";
 import Countries "mo:waterway-mops/def/Countries";
-import ICFCTypes "mo:waterway-mops/ICFCTypes";
+import ICGCTypes "mo:waterway-mops/ICGCTypes";
 
 /* ----- Canister Definition Files ----- */
 
@@ -60,7 +60,7 @@ actor class Self() = this {
   private stable var stable_total_profile : Nat = 0;
   private stable var stable_neurons_used_for_membership : [(Blob, Ids.PrincipalId)] = [];
 
-  private stable var stable_leaderboard_payout_requests : [ICFCTypes.PayoutRequest] = [];
+  private stable var stable_leaderboard_payout_requests : [ICGCTypes.PayoutRequest] = [];
 
   private stable var stable_membership_timer_id : Nat = 0;
 
@@ -193,82 +193,41 @@ actor class Self() = this {
   public shared ({ caller }) func getTokenBalances() : async Result.Result<AppQueries.TokenBalances, Enums.Error> {
     assert not Principal.isAnonymous(caller);
 
-    let icfc_ledger : SNSToken.Interface = actor (CanisterIds.ICFC_SNS_LEDGER_CANISTER_ID);
+    let icgc_ledger : SNSToken.Interface = actor (CanisterIds.ICGC_SNS_LEDGER_CANISTER_ID);
     let ckBTC_ledger : SNSToken.Interface = actor (Environment.CKBTC_LEDGER_CANISTER_ID);
     let icp_ledger : SNSToken.Interface = actor (CanisterIds.NNS_LEDGER_CANISTER_ID);
 
-    let icfc_tokens = await icfc_ledger.icrc1_balance_of({
-      owner = Principal.fromText(CanisterIds.ICFC_BACKEND_CANISTER_ID);
+    let icgc_tokens = await icgc_ledger.icrc1_balance_of({
+      owner = Principal.fromText(CanisterIds.ICGC_BACKEND_CANISTER_ID);
       subaccount = null;
     });
     let ckBTC_tokens = await ckBTC_ledger.icrc1_balance_of({
-      owner = Principal.fromText(CanisterIds.ICFC_BACKEND_CANISTER_ID);
+      owner = Principal.fromText(CanisterIds.ICGC_BACKEND_CANISTER_ID);
       subaccount = null;
     });
     let icp_tokens = await icp_ledger.icrc1_balance_of({
-      owner = Principal.fromText(CanisterIds.ICFC_BACKEND_CANISTER_ID);
+      owner = Principal.fromText(CanisterIds.ICGC_BACKEND_CANISTER_ID);
       subaccount = null;
     });
 
     return #ok({
       ckBTCBalance = ckBTC_tokens;
-      icfcBalance = icfc_tokens;
+      icgcBalance = icgc_tokens;
       icpBalance = icp_tokens;
       icgcBalance = 0; // TODO after ICGC SNS
     });
   };
 
-  public shared ({ caller }) func getICPBalance(user_principal : Ids.PrincipalId) : async Result.Result<Nat, Enums.Error> {
-    assert not Principal.isAnonymous(caller);
-    assert Principal.toText(caller) == Environment.ICFC_SALE_2_CANISTER_ID;
-
-    let icp_ledger : SNSToken.Interface = actor (CanisterIds.NNS_LEDGER_CANISTER_ID);
-    let icp_tokens = await icp_ledger.icrc1_balance_of({
-      owner = Principal.fromText(CanisterIds.ICFC_BACKEND_CANISTER_ID);
-      subaccount = ?Account.principalToSubaccount(Principal.fromText(user_principal));
-    });
-
-    return #ok(icp_tokens);
-  };
-
-  public shared ({ caller }) func completeICFCPackPurchase(user_principal : Ids.PrincipalId, amount : Nat) : async Result.Result<(), Enums.Error> {
-    assert not Principal.isAnonymous(caller);
-    assert Principal.toText(caller) == Environment.ICFC_SALE_2_CANISTER_ID;
-
-    let icp_ledger : SNSToken.Interface = actor (CanisterIds.NNS_LEDGER_CANISTER_ID);
-
-    let res = await icp_ledger.icrc1_transfer({
-      to = {
-        owner = Principal.fromText(CanisterIds.ICFC_BACKEND_CANISTER_ID);
-        subaccount = null;
-      };
-      from_subaccount = ?Account.principalToSubaccount(Principal.fromText(user_principal));
-      amount = amount - 10_000;
-      fee = ?10_000;
-      memo = ?"0";
-      created_at_time = null;
-    });
-
-    switch (res) {
-      case (#Ok(_)) {
-        return #ok(());
-      };
-      case (#Err(_)) {
-        return #err(#FailedInterCanisterCall);
-      };
-    };
-  };
-
-  public shared ({ caller }) func getICFCProfile(dto : ProfileCommands.GetICFCProfile) : async Result.Result<ProfileQueries.ProfileDTO, Enums.Error> {
+  public shared ({ caller }) func getICGCProfile(dto : ProfileCommands.GetICGCProfile) : async Result.Result<ProfileQueries.ProfileDTO, Enums.Error> {
     assert not Principal.isAnonymous(caller);
     assert Utilities.isSubApp(Principal.toText(caller));
     return await profileManager.getProfile(dto);
   };
 
-  public shared ({ caller }) func getICFCProfileSummary(dto : ProfileCommands.GetICFCProfile) : async Result.Result<ProfileQueries.ICFCProfileSummary, Enums.Error> {
+  public shared ({ caller }) func getICGCProfileSummary(dto : ProfileCommands.GetICGCProfile) : async Result.Result<ProfileQueries.ICGCProfileSummary, Enums.Error> {
     assert not Principal.isAnonymous(caller);
     assert Utilities.isSubApp(Principal.toText(caller));
-    return await profileManager.getICFCProfileSummary(dto);
+    return await profileManager.getICGCProfileSummary(dto);
   };
 
   /* ----- Calls to Data Canister ----- */
@@ -284,7 +243,7 @@ actor class Self() = this {
     assert not Principal.isAnonymous(caller);
     // TODO: Check caller is a member
 
-    let data_canister = actor (CanisterIds.ICFC_DATA_CANISTER_ID) : actor {
+    let data_canister = actor (CanisterIds.ICGC_DATA_CANISTER_ID) : actor {
       getLeagues : (dto : LeagueQueries.GetLeagues) -> async Result.Result<LeagueQueries.Leagues, Enums.Error>;
     };
     let result = await data_canister.getLeagues(dto);
@@ -494,7 +453,7 @@ actor class Self() = this {
 
     // backend canister
     var backend_dto : CanisterQueries.Canister = {
-      canisterId = CanisterIds.ICFC_BACKEND_CANISTER_ID;
+      canisterId = CanisterIds.ICGC_BACKEND_CANISTER_ID;
       canisterType = #Static;
       canisterName = "ICFC Backend Canister";
       app = #ICFC;
@@ -511,10 +470,6 @@ actor class Self() = this {
 
     projectCanisters := Array.append<CanisterQueries.Canister>(projectCanisters, [frontend_dto]);
 
-    // sale canister
-    let saleCanister = actor (Environment.ICFC_SALE_2_CANISTER_ID) : actor {
-      getCanisterInfo : () -> async Result.Result<CanisterQueries.Canister, Enums.Error>;
-    };
     let result3 = await saleCanister.getCanisterInfo();
     switch (result3) {
       case (#ok(canisterInfo)) {
@@ -563,7 +518,7 @@ actor class Self() = this {
 
     let canisterLogsResult = await canisterManager.getCanisterLogs({
       app = dto.app;
-      canisterId = CanisterIds.ICFC_BACKEND_CANISTER_ID;
+      canisterId = CanisterIds.ICGC_BACKEND_CANISTER_ID;
     });
 
     // let #ok(canisterLogs) = canisterLogsResult else {

@@ -4,7 +4,7 @@ import { authStore } from "$lib/stores/auth-store";
 import type {
   GetMostValuableGameweekPlayers,
   MostValuableGameweekPlayers,
-} from "../../../../declarations/OpenFPL_backend/OpenFPL_backend.did";
+} from "../../../../declarations/Openbackend_backend/Openbackend_backend.did";
 import { isError } from "$lib/utils/Helpers";
 
 export class MVPService {
@@ -16,7 +16,7 @@ export class MVPService {
     try {
       const identityActor: any = await ActorFactory.createIdentityActor(
         authStore,
-        process.env.OPENFPL_BACKEND_CANISTER_ID ?? "",
+        process.env.OPENbackend_BACKEND_CANISTER_ID ?? "",
       );
       const result = await identityActor.getMostValuableGameweekPlayers(dto);
       if (isError(result))

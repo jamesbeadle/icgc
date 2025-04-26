@@ -1,4 +1,4 @@
-import { idlFactory } from "../../../../declarations/OpenFPL_backend";
+import { idlFactory } from "../../../../declarations/Openbackend_backend";
 import { ActorFactory } from "../utils/actor.factory";
 import { isError } from "$lib/utils/Helpers";
 import { toasts } from "$lib/stores/toasts-store";
@@ -11,7 +11,7 @@ import type {
   MostValuableTeamLeaderboard,
   SeasonLeaderboard,
   WeeklyLeaderboard,
-} from "../../../../declarations/OpenFPL_backend/OpenFPL_backend.did";
+} from "../../../../declarations/Openbackend_backend/Openbackend_backend.did";
 import { authStore } from "$lib/stores/auth-store";
 
 export class LeaderboardService {
@@ -21,7 +21,7 @@ export class LeaderboardService {
     try {
       const identityActor: any = await ActorFactory.createIdentityActor(
         authStore,
-        process.env.OPENFPL_BACKEND_CANISTER_ID ?? "",
+        process.env.OPENbackend_BACKEND_CANISTER_ID ?? "",
       );
       const result = await identityActor.getWeeklyLeaderboard(dto);
       if (isError(result)) {
@@ -43,7 +43,7 @@ export class LeaderboardService {
     try {
       const identityActor: any = await ActorFactory.createIdentityActor(
         authStore,
-        process.env.OPENFPL_BACKEND_CANISTER_ID ?? "",
+        process.env.OPENbackend_BACKEND_CANISTER_ID ?? "",
       );
       const result = await identityActor.getMonthlyLeaderboard(dto);
       if (isError(result)) {
@@ -65,7 +65,7 @@ export class LeaderboardService {
     try {
       const identityActor: any = await ActorFactory.createIdentityActor(
         authStore,
-        process.env.OPENFPL_BACKEND_CANISTER_ID ?? "",
+        process.env.OPENbackend_BACKEND_CANISTER_ID ?? "",
       );
       const result = await identityActor.getSeasonLeaderboard(dto);
       if (isError(result)) {
@@ -87,7 +87,7 @@ export class LeaderboardService {
     try {
       const identityActor: any = await ActorFactory.createIdentityActor(
         authStore,
-        process.env.OPENFPL_BACKEND_CANISTER_ID ?? "",
+        process.env.OPENbackend_BACKEND_CANISTER_ID ?? "",
       );
       const result = await identityActor.getMostValuableTeamLeaderboard(dto);
       if (isError(result)) {

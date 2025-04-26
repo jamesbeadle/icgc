@@ -71,7 +71,7 @@
       <div class="w-full mt-4 mb-2 border border-gray-500">
         <select
           value={newFavouriteTeam}
-          class="w-full p-2 rounded-md fpl-dropdown"
+          class="w-full p-2 rounded-md backend-dropdown"
         >
           <option value={0}>Select Team</option>
           {#each $clubStore as team}
@@ -86,7 +86,7 @@
       </div>
 
       <div class="flex items-center py-3 space-x-4">
-        <button class="px-4 py-2 default-button fpl-cancel-btn" type="button" onclick={cancelModal}>
+        <button class="px-4 py-2 default-button backend-cancel-btn" type="button" onclick={cancelModal}>
           Cancel
         </button>
         <button

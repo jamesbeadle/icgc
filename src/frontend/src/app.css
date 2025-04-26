@@ -28,24 +28,24 @@ main {
   @apply flex items-center justify-between p-2 mt-4 border-t border-b border-gray-600 bg-light-gray;
 }
 
-.fpl-button {
+.backend-button {
   background-color: #2ce3a6;
   color: black;
   border: 1px solid black;
   @apply hover:border-BrandSlateGray hover:bg-BrandGreen/80;
 }
 
-.inactive-fpl-button {
+.inactive-backend-button {
   @apply bg-BrandLightGray;
 }
 
-.fpl-dropdown {
+.backend-dropdown {
   background-color: transparent !important;
   border: none;
   @apply rounded-sm p-2 text-center min-w-[125px];
 }
 
-.fpl-dropdown option {
+.backend-dropdown option {
   background-color: black;
   border: none;
 }
@@ -63,7 +63,7 @@ input {
   background-color: rgba(46, 50, 58, 0.6);
 }
 
-.fpl-cancel-btn {
+.backend-cancel-btn {
   @apply border rounded-sm bg-BrandBlack border-BrandSlateGray;
 }
 

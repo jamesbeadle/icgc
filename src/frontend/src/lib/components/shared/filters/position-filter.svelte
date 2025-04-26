@@ -16,7 +16,7 @@
     <div class="flex items-center">
       <p>Position:</p>
       <select
-        class="px-2 fpl-dropdown text-center mx-0 md:mx-2 min-w-[100px]"
+        class="px-2 backend-dropdown text-center mx-0 md:mx-2 min-w-[100px]"
         value={selectedPosition}
       >
         <option value={-1}>All</option>

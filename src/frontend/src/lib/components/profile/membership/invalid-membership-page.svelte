@@ -45,7 +45,7 @@
             <h1 class="mb-2 text-4xl font-bold text-white">ICFC Membership Profile</h1>
         </div>
         <div class="space-y-4 text-gray-300">
-            <p class="text-lg">Only ICFC ecosystem owners can play OpenFPL.</p>
+            <p class="text-lg">Only ICFC ecosystem owners can play Openbackend.</p>
             <p class="text-lg">
                 Please visit 
                 <a 
@@ -55,7 +55,7 @@
                 >
                     icfc.app
                 </a> 
-                to renew or setup your membership and to link your OpenFPL principal ID:
+                to renew or setup your membership and to link your Openbackend principal ID:
             </p>
             
             <div class="my-6">
@@ -64,7 +64,7 @@
 
             <div class="flex justify-center pt-4 space-x-4">
                 <button 
-                    class="fpl-button default-button hover:bg-BrandGreen/80"
+                    class="backend-button default-button hover:bg-BrandGreen/80"
                     onclick={handleRefresh}
                 >
                     Refresh

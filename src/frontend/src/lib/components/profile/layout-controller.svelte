@@ -4,7 +4,7 @@
     import { userStore } from '$lib/stores/user-store';
     import { get } from 'svelte/store';
     import { onMount, type Snippet } from 'svelte';
-    import type { CombinedProfile, MembershipType__1 } from '../../../../../declarations/OpenFPL_backend/OpenFPL_backend.did';
+    import type { CombinedProfile, MembershipType__1 } from '../../../../../declarations/Openbackend_backend/Openbackend_backend.did';
     
     import Header from '$lib/shared/Header.svelte';
     import Footer from '$lib/shared/Footer.svelte';

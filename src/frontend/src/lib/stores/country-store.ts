@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import type { Country } from "../../../../declarations/OpenFPL_backend/OpenFPL_backend.did";
+import type { Country } from "../../../../declarations/backend/backend.did";
 import { CountryService } from "../services/country-service";
 
 function createCountryStore() {

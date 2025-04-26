@@ -1,8 +1,8 @@
 import { openDB, type IDBPDatabase } from "idb";
 import { browser } from "$app/environment";
-import type { CombinedProfile } from "../../../../declarations/OpenFPL_backend/OpenFPL_backend.did";
+import type { CombinedProfile } from "../../../../declarations/backend/backend.did";
 
-const DB_NAME = "openFPLUserProfileDB";
+const DB_NAME = "icgcUserProfileDB";
 const DB_VERSION = 1;
 const STORE_NAME = "userProfiles";
 const PROFILE_KEY = "user_profile_data";

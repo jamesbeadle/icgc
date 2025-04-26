@@ -1,4 +1,4 @@
-import type { AppStatus } from "../../../../declarations/OpenFPL_backend/OpenFPL_backend.did";
+import type { AppStatus } from "../../../../declarations/backend/backend.did";
 import { AppService } from "$lib/services/app-service";
 import { toasts } from "./toasts-store";
 import { isError } from "$lib/utils/Helpers";

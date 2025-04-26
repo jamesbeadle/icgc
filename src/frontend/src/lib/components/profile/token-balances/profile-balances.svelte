@@ -2,13 +2,13 @@
     import { userStore } from "$lib/stores/user-store";
     import { onMount } from "svelte";
     import LoadingDots from "../../shared/global/loading-dots.svelte";
-    import WithdrawFplModal from "./withdraw-fpl-modal.svelte";
+    import WithdrawbackendModal from "./withdraw-backend-modal.svelte";
     import ICFCCoinIcon from "$lib/icons/ICFCCoinIcon.svelte";
 
     let loadingBalances = true;
-    let showWithdrawFPLModal = false;
-    let fplBalance = 0n;
-    let fplBalanceFormatted = "0.0000"; 
+    let showWithdrawbackendModal = false;
+    let backendBalance = 0n;
+    let backendBalanceFormatted = "0.0000"; 
 
     onMount(async () => {
       await fetchBalances();
@@ -16,18 +16,18 @@
     });
 
     async function fetchBalances() {
-      fplBalance = await userStore.getFPLBalance();
-      const fplBalanceInTokens = Number(fplBalance) / 100_000_000;
-      fplBalanceFormatted = fplBalanceInTokens.toFixed(8);
+      backendBalance = await userStore.getbackendBalance();
+      const backendBalanceInTokens = Number(backendBalance) / 100_000_000;
+      backendBalanceFormatted = backendBalanceInTokens.toFixed(8);
       loadingBalances = false;
     }
   
-    function loadWithdrawFPLModal(){
-        showWithdrawFPLModal = true;
+    function loadWithdrawbackendModal(){
+        showWithdrawbackendModal = true;
     };
 
-    async function closeWithdrawFPLModal(){
-        showWithdrawFPLModal = false;
+    async function closeWithdrawbackendModal(){
+        showWithdrawbackendModal = false;
         await fetchBalances();
     };
 </script>
@@ -42,10 +42,10 @@
                   <LoadingDots />
                 {:else}
                   <p>
-                    {fplBalanceFormatted} ICFC
+                    {backendBalanceFormatted} ICFC
                   </p>
-                  <button class="p-1 px-2 text-sm rounded md:text-sm md:p-2 md:px-4 fpl-button"
-                    onclick={loadWithdrawFPLModal}
+                  <button class="p-1 px-2 text-sm rounded md:text-sm md:p-2 md:px-4 backend-button"
+                    onclick={loadWithdrawbackendModal}
                   >
                     Withdraw
                   </button>
@@ -57,10 +57,10 @@
     </div>
   </div>
 
-  <WithdrawFplModal
-    visible={showWithdrawFPLModal}
-    closeModal={closeWithdrawFPLModal}
-    cancelModal={closeWithdrawFPLModal}
-    fplBalance={fplBalance}
-    fplBalanceFormatted={fplBalanceFormatted}
+  <WithdrawbackendModal
+    visible={showWithdrawbackendModal}
+    closeModal={closeWithdrawbackendModal}
+    cancelModal={closeWithdrawbackendModal}
+    backendBalance={backendBalance}
+    backendBalanceFormatted={backendBalanceFormatted}
   />

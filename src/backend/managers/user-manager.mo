@@ -310,7 +310,7 @@ module {
 
           let verifySubAppDTO : ICFCCommands.VerifySubApp = {
             subAppUserPrincipalId = dto.principalId;
-            subApp = #OpenFPL;
+            subApp = #GolfPad;
             icfcPrincipalId = foundICFCLink.principalId;
           };
 
@@ -341,7 +341,7 @@ module {
 
     public func updateFavouriteClub(dto : UserCommands.SetFavouriteClub, activeClubs : [DataCanister.Club], seasonActive : Bool) : async Result.Result<(), Enums.Error> {
 
-      // TODO: John, This can set in a profile here and allow to be different in OpenFPL from profile value
+      // TODO: John, This can set in a profile here and allow to be different in GolfPad from profile value
 
       let isClubActive = Array.find(
         activeClubs,
@@ -425,7 +425,7 @@ module {
           icfcPrincipalId = icfcLink.1.principalId;
           subAppUserPrincipalId = icfcLink.0;
           membershipType = icfcLink.1.membershipType;
-          subApp = #OpenFPL;
+          subApp = #GolfPad;
         };
         result := Array.append(result, [link]);
       };
@@ -444,7 +444,7 @@ module {
       Cycles.add<system>(50_000_000_000_000);
       let canister = await ManagerCanister._ManagerCanister();
       let IC : Management.Management = actor (CanisterIds.Default);
-      let _ = await CanisterUtilities.updateCanister_(canister, ?Principal.fromText(CanisterIds.OPENFPL_BACKEND_CANISTER_ID), IC);
+      let _ = await CanisterUtilities.updateCanister_(canister, ?Principal.fromText(CanisterIds.GOLFPAD_BACKEND_CANISTER_ID), IC);
 
       let canister_principal = Principal.fromActor(canister);
       let canisterId = Principal.toText(canister_principal);

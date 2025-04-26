@@ -127,7 +127,7 @@
       </div>
       <div class="space-y-6 text-gray-300">
         <p class="text-lg">
-          OpenFPL is free to play for ICFC owners who have claimed their membership through 
+          Openbackend is free to play for ICFC owners who have claimed their membership through 
           <a 
             href="https://icfc.app/membership" 
             target="_blank" 
@@ -137,7 +137,7 @@
           </a>.
         </p>
         <p class="mb-4 text-lg">
-          Please link your OpenFPL principal ID within your ICFC profile to play and then click the button below to refresh your status.
+          Please link your Openbackend principal ID within your ICFC profile to play and then click the button below to refresh your status.
         </p>
         <div class="mb-6">
           <CopyPrincipal  bgColor="gray" borderColor="white"/>
@@ -150,14 +150,14 @@
         <div class="flex justify-center pt-4">
           {#if notLinked}
             <button 
-              class="fpl-button default-button hover:bg-BrandGreen/80"
+              class="backend-button default-button hover:bg-BrandGreen/80"
               onclick={checkMembership}
             >
               <span>Refresh Status</span>
             </button>
           {:else}
             <button 
-              class="fpl-button default-button "
+              class="backend-button default-button "
               onclick={handleLinkICFCProfile}
             >
               <span>Link ICFC Membership</span>

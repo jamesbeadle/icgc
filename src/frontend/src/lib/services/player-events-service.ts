@@ -8,7 +8,7 @@ import type {
   PlayerDetailsForGameweek,
   PlayerDetails,
   GetPlayerDetails,
-} from "../../../../declarations/OpenFPL_backend/OpenFPL_backend.did";
+} from "../../../../declarations/Openbackend_backend/Openbackend_backend.did";
 
 export class PlayerEventsService {
   constructor() {}
@@ -25,7 +25,7 @@ export class PlayerEventsService {
       };
       const identityActor: any = await ActorFactory.createIdentityActor(
         authStore,
-        process.env.OPENFPL_BACKEND_CANISTER_ID ?? "",
+        process.env.OPENbackend_BACKEND_CANISTER_ID ?? "",
       );
 
       let result = await identityActor.getPlayerDetails(dto);
@@ -53,7 +53,7 @@ export class PlayerEventsService {
       };
       const identityActor: any = await ActorFactory.createIdentityActor(
         authStore,
-        process.env.OPENFPL_BACKEND_CANISTER_ID ?? "",
+        process.env.OPENbackend_BACKEND_CANISTER_ID ?? "",
       );
       let result = await identityActor.getPlayerEvents(dto);
 

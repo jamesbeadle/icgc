@@ -6,7 +6,7 @@ import type {
   Clubs,
   LeagueId,
   GetClubs,
-} from "../../../../declarations/OpenFPL_backend/OpenFPL_backend.did";
+} from "../../../../declarations/Openbackend_backend/Openbackend_backend.did";
 
 export class ClubService {
   constructor() {}
@@ -15,7 +15,7 @@ export class ClubService {
     try {
       const identityActor: any = await ActorFactory.createIdentityActor(
         authStore,
-        process.env.OPENFPL_BACKEND_CANISTER_ID ?? "",
+        process.env.OPENbackend_BACKEND_CANISTER_ID ?? "",
       );
       const leagueId: LeagueId = Number(process.env.LEAGUE_ID);
       let dto: GetClubs = { leagueId };

@@ -4,7 +4,7 @@ import { userIdCreatedStore } from "$lib/stores/user-control-store";
 import { initErrorSignOut } from "./auth-services";
 import { authSignedInStore } from "$lib/derived/auth.derived";
 import type { OptionIdentity } from "$lib/types/identity";
-import type { CombinedProfile } from "../../../../declarations/OpenFPL_backend/OpenFPL_backend.did";
+import type { CombinedProfile } from "../../../../declarations/backend/backend.did";
 import { get } from "svelte/store";
 
 export type InitUserProfileResult = { result: "skip" | "success" | "error" };

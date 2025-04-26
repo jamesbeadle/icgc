@@ -1,4 +1,4 @@
-import Enums "../../OpenFPL_backend/enums/enums";
+import Enums "../../backend/enums/enums";
 module MemberbershipTypes = {
   
   public type MembershipClaim = {

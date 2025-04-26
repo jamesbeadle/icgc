@@ -207,49 +207,6 @@ actor class _ManagerCanister() {
 
   };
 
-  private func mergeTeamSelection(dto : UserCommands.SaveFantasyTeam, manager : AppTypes.Manager, transfersAvailable : Nat8, newBankBalance : Nat16, currentGameweek: IcfcTypes.GameweekNumber) : AppTypes.Manager {
-    
-    var transferWindowGameweek = manager.transferWindowGameweek;
-    if(transferWindowGameweek == 0 and dto.playTransferWindowBonus){
-      transferWindowGameweek := currentGameweek;
-    };
-    
-    return {
-      principalId = manager.principalId;
-      username = manager.username;
-      favouriteClubId = manager.favouriteClubId;
-      createDate = manager.createDate;
-      termsAccepted = manager.termsAccepted;
-      profilePicture = manager.profilePicture;
-      transfersAvailable = transfersAvailable;
-      monthlyBonusesAvailable = manager.monthlyBonusesAvailable;
-      bankQuarterMillions = newBankBalance;
-      playerIds = dto.playerIds;
-      captainId = dto.captainId;
-      goalGetterGameweek = manager.goalGetterGameweek;
-      goalGetterPlayerId = manager.goalGetterPlayerId;
-      passMasterGameweek = manager.passMasterGameweek;
-      passMasterPlayerId = manager.passMasterPlayerId;
-      noEntryGameweek = manager.noEntryGameweek;
-      noEntryPlayerId = manager.noEntryPlayerId;
-      teamBoostGameweek = manager.teamBoostGameweek;
-      teamBoostClubId = manager.teamBoostClubId;
-      safeHandsGameweek = manager.safeHandsGameweek;
-      safeHandsPlayerId = manager.safeHandsPlayerId;
-      captainFantasticGameweek = manager.captainFantasticGameweek;
-      captainFantasticPlayerId = manager.captainFantasticPlayerId;
-      oneNationGameweek = manager.oneNationGameweek;
-      oneNationCountryId = manager.oneNationCountryId;
-      prospectsGameweek = manager.prospectsGameweek;
-      braceBonusGameweek = manager.braceBonusGameweek;
-      hatTrickHeroGameweek = manager.hatTrickHeroGameweek;
-      transferWindowGameweek;
-      history = manager.history;
-      profilePictureType = manager.profilePictureType;
-      canisterId = manager.canisterId;
-    };
-  };
-
   public shared ({ caller }) func useBonus(dto : UserCommands.PlayBonus, monthlyBonuses : Nat8, gameweek: IcfcTypes.GameweekNumber) : async Result.Result<(), Enums.Error> {
     assert not Principal.isAnonymous(caller);
     let backendPrincipalId = Principal.toText(caller);

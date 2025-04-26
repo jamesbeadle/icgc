@@ -43,7 +43,7 @@
 <div class={`fixed top-0 left-0 right-0 z-[9999] p-4 shadow-md flex justify-between items-center ${bgColorClass} ${textColorClass}`}>
   <span>{toast.message}</span>
   {#if toast.type == "frontend-update"}
-	<button onclick={updateFrontend} class="fpl-button">Update OpenFPL</button>
+	<button onclick={updateFrontend} class="backend-button">Update Openbackend</button>
   {/if}
   <button class="ml-4 font-bold" onclick={closeToast}>
     &times;

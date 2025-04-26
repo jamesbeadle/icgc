@@ -1,6 +1,5 @@
 <script lang="ts">
     import MenuIcon from "$lib/icons/MenuIcon.svelte";
-    import OpenFplIcon from "$lib/icons/OpenFPLIcon.svelte";
     
   interface Props {
     toggleMenu: () => void;
@@ -19,8 +18,7 @@
     href="/" 
     class="flex items-center space-x-2 transition-transform hover:scale-105"
   >
-    <OpenFplIcon className="w-6 h-6" currentColor='white' />
-    <span class="logo-text hidden sm:block">Football God</span>
+    <span class="logo-text hidden sm:block">ICGC</span>
   </a>
 
   <div class="flex items-center gap-4">

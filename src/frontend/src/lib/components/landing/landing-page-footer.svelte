@@ -16,14 +16,14 @@
             />
             </a>
             <a
-            href="https://x.com/OpenFPL_DAO"
+            href="https://x.com/Openbackend_DAO"
             target="_blank"
             rel="noopener noreferrer"
             >
             <img src="/twitter.png" class="w-auto h-4 mb-2 mr-2" alt="X" />
             </a>
             <a
-            href="https://github.com/jamesbeadle/OpenFPL"
+            href="https://github.com/jamesbeadle/Openbackend"
             target="_blank"
             rel="noopener noreferrer"
             >

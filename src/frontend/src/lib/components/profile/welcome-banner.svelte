@@ -28,13 +28,13 @@
                     <h3 class="mb-1 font-bold">Welcome, new manager!</h3>
                     <p class="text-white/90">
                         You can now update your profile picture, edit your username and favorite team, 
-                        withdraw FPL, and view your gameweek history.
+                        withdraw backend, and view your gameweek history.
                     </p>
                 {:else}
                     <h3 class="mb-1 font-bold">Ready to get started?</h3>
                     <p class="text-white/90">
                         Once you're done exploring your profile, check out the Home page or go to Squad Selection to pick your 
-                        team and join the competition. Good luck on your FPL journey!
+                        team and join the competition. Good luck on your backend journey!
                     </p>
                 {/if}
             </div>

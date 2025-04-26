@@ -1,6 +1,6 @@
 <script lang="ts">
     import BadgeIcon from "$lib/icons/BadgeIcon.svelte";
-    import type { Club, Player } from "../../../../../../declarations/OpenFPL_backend/OpenFPL_backend.did";
+    import type { Club, Player } from "../../../../../../declarations/Openbackend_backend/Openbackend_backend.did";
     
 
     interface Props {

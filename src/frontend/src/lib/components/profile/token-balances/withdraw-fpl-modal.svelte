@@ -10,10 +10,10 @@
     visible: boolean; 
     closeModal: () => void;
     cancelModal: () => void;
-    fplBalance: bigint;
-    fplBalanceFormatted: string;
+    backendBalance: bigint;
+    backendBalanceFormatted: string;
   }
-  let { visible, closeModal, cancelModal, fplBalance, fplBalanceFormatted }: Props = $props();
+  let { visible, closeModal, cancelModal, backendBalance, backendBalanceFormatted }: Props = $props();
 
 
   let isLoading = $state(false);
@@ -32,22 +32,22 @@
   }
 
   function setMaxWithdrawAmount() {
-    const maxAmount = Number(fplBalance) / 100_000_000;
+    const maxAmount = Number(backendBalance) / 100_000_000;
     withdrawalInputAmount = maxAmount.toFixed(8);
   }
   
   $effect(() => {
-    isSubmitDisabled = !isPrincipalValid(withdrawalAddress) || !isWithdrawAmountValid(withdrawalInputAmount, fplBalance); 
-    errorMessage = (!isAmountValid(withdrawalInputAmount) || !isWithdrawAmountValid(withdrawalInputAmount, fplBalance)) && withdrawalInputAmount
+    isSubmitDisabled = !isPrincipalValid(withdrawalAddress) || !isWithdrawAmountValid(withdrawalInputAmount, backendBalance); 
+    errorMessage = (!isAmountValid(withdrawalInputAmount) || !isWithdrawAmountValid(withdrawalInputAmount, backendBalance)) && withdrawalInputAmount
     ? "Withdrawal amount greater than account balance."
     : "";
   });
 
-  async function withdrawFPL() {
+  async function withdrawbackend() {
     isLoading = true;
     try {
       const amountInE8s = convertToE8s(withdrawalInputAmount);
-      await userStore.withdrawFPL(withdrawalAddress, amountInE8s);
+      await userStore.withdrawbackend(withdrawalAddress, amountInE8s);
       toasts.addToast( { 
         message: "ICFC successfully withdrawn.",
         type: "success",
@@ -72,13 +72,13 @@
     <LocalSpinner />
   {:else}
     <div class="p-4 mx-4">
-      <p>ICFC Balance: {fplBalanceFormatted}</p>
+      <p>ICFC Balance: {backendBalanceFormatted}</p>
       <div class="mt-4">
-        <input type="text" class="fpl-button" placeholder="Withdrawal Address" value={withdrawalAddress} />
+        <input type="text" class="backend-button" placeholder="Withdrawal Address" value={withdrawalAddress} />
       </div>
       <div class="flex items-center mt-4">
-        <input type="text" class="mr-2 fpl-button" placeholder="Withdrawal Amount" value={withdrawalInputAmount} />
-        <button type="button" class="p-1 px-2 text-sm rounded md:text-sm md:p-2 md:px-4 fpl-button" onclick={setMaxWithdrawAmount}>
+        <input type="text" class="mr-2 backend-button" placeholder="Withdrawal Amount" value={withdrawalInputAmount} />
+        <button type="button" class="p-1 px-2 text-sm rounded md:text-sm md:p-2 md:px-4 backend-button" onclick={setMaxWithdrawAmount}>
           Max
         </button>
       </div>
@@ -86,10 +86,10 @@
         <div class="mt-2 text-red-600">{errorMessage}</div>
       {/if}
       <div class="flex flex-row items-center py-3 space-x-4">
-        <button class="px-4 py-2 default-button fpl-cancel-btn" type="button"onclick={cancelModal}>
+        <button class="px-4 py-2 default-button backend-cancel-btn" type="button"onclick={cancelModal}>
           Cancel
         </button>
-        <button onclick={withdrawFPL} class={`px-4 py-2 ${ isSubmitDisabled ? "bg-gray-500" : "bg-BrandPurple"} default-button`} type="submit" disabled={isSubmitDisabled}>
+        <button onclick={withdrawbackend} class={`px-4 py-2 ${ isSubmitDisabled ? "bg-gray-500" : "bg-BrandPurple"} default-button`} type="submit" disabled={isSubmitDisabled}>
           Withdraw
         </button>
       </div>

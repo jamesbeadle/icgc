@@ -1,9 +1,9 @@
-import { idlFactory } from "../../../../declarations/OpenFPL_backend";
+import { idlFactory } from "../../../../declarations/Openbackend_backend";
 import { ActorFactory } from "../utils/actor.factory";
 import { isError } from "$lib/utils/Helpers";
 import { toasts } from "$lib/stores/toasts-store";
 import { authStore } from "$lib/stores/auth-store";
-import type { DataHash } from "../../../../declarations/OpenFPL_backend/OpenFPL_backend.did";
+import type { DataHash } from "../../../../declarations/Openbackend_backend/Openbackend_backend.did";
 
 export class DataHashService {
   constructor() {}
@@ -12,7 +12,7 @@ export class DataHashService {
     try {
       const actor: any = await ActorFactory.createIdentityActor(
         authStore,
-        process.env.OPENFPL_BACKEND_CANISTER_ID ?? "",
+        process.env.OPENbackend_BACKEND_CANISTER_ID ?? "",
       );
       const result = await actor.getDataHashes();
       console.log("result");

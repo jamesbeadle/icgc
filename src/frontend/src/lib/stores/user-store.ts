@@ -13,7 +13,7 @@ import type {
   CombinedProfile,
   SetFavouriteClub,
   ICFCLinkStatus,
-} from "../../../../declarations/OpenFPL_backend/OpenFPL_backend.did";
+} from "../../../../declarations/backend/backend.did";
 import { userIdCreatedStore } from "$lib/stores/user-control-store";
 import { get } from "svelte/store";
 function createUserStore() {
@@ -40,7 +40,7 @@ function createUserStore() {
     try {
       const identityActor = await ActorFactory.createIdentityActor(
         authStore,
-        process.env.OPENFPL_BACKEND_CANISTER_ID ?? "",
+        process.env.ICGC_BACKEND_CANISTER_ID ?? "",
       );
       let dto: SetFavouriteClub = {
         principalId,
@@ -71,7 +71,7 @@ function createUserStore() {
     }
   }
 
-  async function withdrawFPL(
+  async function withdrawICGC(
     withdrawalAddress: string,
     withdrawalAmount: bigint,
   ): Promise<any> {
@@ -120,12 +120,12 @@ function createUserStore() {
         }
       }
     } catch (error) {
-      console.error("Error withdrawing FPL.", error);
+      console.error("Error withdrawing ICGC.", error);
       throw error;
     }
   }
 
-  async function getFPLBalance(): Promise<bigint> {
+  async function getICGCBalance(): Promise<bigint> {
     let identity: OptionIdentity;
 
     authStore.subscribe(async (auth) => {
@@ -188,8 +188,8 @@ function createUserStore() {
     sync,
     cacheProfile,
     updateFavouriteTeam,
-    withdrawFPL,
-    getFPLBalance,
+    withdrawICGC,
+    getICGCBalance,
     getUser,
     getICFCLinkStatus,
     linkICFCProfile,

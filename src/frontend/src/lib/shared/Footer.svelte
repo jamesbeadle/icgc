@@ -1,5 +1,4 @@
 <script>
-  import OpenFplIcon from "$lib/icons/OpenFPLIcon.svelte";
 </script>
 
 <svelte:head>
@@ -27,14 +26,14 @@
             />
           </a>
           <a
-            href="https://x.com/OpenFPL_DAO"
+            href="https://x.com/icgc_golf"
             target="_blank"
             rel="noopener noreferrer"
           >
             <img src="/twitter.png" class="w-auto h-4 mb-2 mr-2" alt="X" />
           </a>
           <a
-            href="https://github.com/jamesbeadle/OpenFPL"
+            href="https://github.com/jamesbeadle/ICGC"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -62,7 +61,7 @@
     <div class="flex-0">
       <a href="/">
         <b class="flex items-center px-4 mt-2 md:mt-0 md:px-10"
-          ><OpenFplIcon currentColor='white' className="h-6 w-auto mr-2" />OpenFPL</b
+          >ICGC</b
         >
       </a>
     </div>
