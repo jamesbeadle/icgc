@@ -66,7 +66,6 @@ actor Self {
   private stable var tournaments : [GolfTypes.Tournament] = [];
   private stable var pro_golfers : [GolfTypes.ProGolfer] = [];
   private stable var golf_courses : [GolfTypes.GolfCourse] = [];
-  
   private stable var dataHashes : [BaseTypes.DataHash] = [];
   private stable var dataTotals : SummaryTypes.DataTotals = {
     totalTournaments = 0;

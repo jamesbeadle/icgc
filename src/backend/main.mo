@@ -230,6 +230,154 @@ actor class Self() = this {
     return await profileManager.getICGCProfileSummary(dto);
   };
 
+
+
+  /* ----- Golf Course Queries and Commands ----- */
+
+  public shared query ({ caller }) func getGolfCourse(dto : GolfCourseQueries.GetGolfCourse) : async Result.Result<GolfCourseQueries.GolfCourse, Enums.Error> {
+    assert not Principal.isAnonymous(caller);
+    return golfCourseManager.getGolfCourse(dto);
+  };
+
+  public shared query ({ caller }) func listGolfCourses(dto : GolfCourseQueries.ListGolfCourses) : async Result.Result<GolfCourseQueries.GolfCourses, Enums.Error> {
+    assert not Principal.isAnonymous(caller);
+    return golfCourseManager.listGolfCourses(dto);
+  };
+
+  public shared ({ caller }) func createGolfCourse(dto : GolfCourseCommands.CreateGolfCourse) : async Result.Result<(), Enums.Error> {
+    assert not Principal.isAnonymous(caller);
+    let principalId = Principal.toText(caller);
+    assert await isAdmin(principalId);
+    return golfCourseManager.createGolfCourse(dto);
+  };
+
+  public shared ({ caller }) func updateGolfCourse(dto : GolfCourseCommands.UpdateGolfCourse) : async Result.Result<(), Enums.Error> {
+    assert not Principal.isAnonymous(caller);
+    let principalId = Principal.toText(caller);
+    assert await isAdmin(principalId);
+    return golfCourseManager.updateGolfCourse(dto);
+  };
+
+  /* ----- Golfer Queries and Commands ----- */
+
+  public shared query ({ caller }) func getGolfer(dto : GolferQueries.GetGolfer) : async Result.Result<GolferQueries.Golfer, Enums.Error> {
+    assert not Principal.isAnonymous(caller);
+    return golferManager.getGolfer(dto);
+  };
+
+  public shared query ({ caller }) func listGolfers(dto : GolferQueries.ListGolfers) : async Result.Result<GolferQueries.Golfers, Enums.Error> {
+    assert not Principal.isAnonymous(caller);
+    return golferManager.listGolfers(dto);
+  };
+
+  public shared ({ caller }) func createGolfer(dto : GolferCommands.CreateGolfer) : async Result.Result<(), Enums.Error> {
+    assert not Principal.isAnonymous(caller);
+    let principalId = Principal.toText(caller);
+    assert await isAdmin(principalId);
+    return golferManager.createGolfer(dto);
+  };
+
+  public shared ({ caller }) func updateGolfer(dto : GolferCommands.UpdateGolfer) : async Result.Result<(), Enums.Error> {
+    assert not Principal.isAnonymous(caller);
+    let principalId = Principal.toText(caller);
+    assert await isAdmin(principalId);
+    return golferManager.updateGolfer(dto);
+  };
+
+
+
+  /* ----- Tournament Queries and Commands ----- */
+
+  public shared query ({ caller }) func getTournament(dto : TournamentQueries.GetTournament) : async Result.Result<TournamentQueries.Tournament, Enums.Error> {
+    assert not Principal.isAnonymous(caller);
+    return tournamentManager.getTournament(dto);
+  };
+
+  public shared query ({ caller }) func getTournamentInstance(dto: TournamentQueries.GetTournamentInstance) : async Result.Result<TournamentQueries.TournamentInstance, Enums.Error> {
+    assert not Principal.isAnonymous(caller);
+    return tournamentManager.getTournamentInstance(dto);
+  };
+
+  public shared query ({ caller }) func listTournaments(dto : TournamentQueries.ListTournaments) : async Result.Result<TournamentQueries.Tournaments, Enums.Error> {
+    assert not Principal.isAnonymous(caller);
+    return tournamentManager.listTournaments(dto);
+  };
+
+  public shared ({ caller }) func createTournament(dto : TournamentCommands.CreateTournament) : async Result.Result<(), Enums.Error> {
+    assert not Principal.isAnonymous(caller);
+    let principalId = Principal.toText(caller);
+    assert await isAdmin(principalId);
+    return tournamentManager.createTournament(dto);
+  };
+
+  public shared ({ caller }) func updateTournamentStage(dto : TournamentCommands.UpdateTournamentStage) : async Result.Result<(), Enums.Error> {
+    assert not Principal.isAnonymous(caller);
+    let principalId = Principal.toText(caller);
+    assert await isAdmin(principalId);
+    return tournamentManager.updateTournamentStage(dto);
+  };
+
+  public shared ({ caller }) func calculateLeaderboard(dto : FantasyLeaderboardCommands.CalculateLeaderboard) : async Result.Result<(), Enums.Error> {
+    assert not Principal.isAnonymous(caller);
+    let principalId = Principal.toText(caller);
+    assert await isAdmin(principalId);
+
+    let tournament = tournamentManager.getTournamentInstance({
+      tournamentId = dto.tournamentId;
+      year = dto.year;
+    });
+
+    switch (tournament) {
+      case (#ok foundTournament) {
+
+        let golfCourse = golfCourseManager.getGolfCourse({
+          golfCourseId = foundTournament.golfCourseId;
+        });
+        switch (golfCourse) {
+          case (#ok foundGolfCourse) {
+            userManager.calculateScorecards(foundTournament.leaderboard, foundGolfCourse);
+            if (not foundTournament.populated) {
+              transferLeaderboardChunks(dto.tournamentId, dto.year, foundGolfCourse);
+            };
+
+            fantasyLeaderboardManager.calculateLeaderboard(dto.tournamentId, dto.year);
+            return #ok();
+          };
+          case (_) {
+            return #err(#NotFound);
+          };
+        };
+
+      };
+      case (_) {
+        return #err(#NotFound);
+      };
+    };
+  };
+
+
+
+  private func validateUsernameFormat(username : Text) : Bool {
+    if (Text.size(username) < 3 or Text.size(username) > 20) {
+      return false;
+    };
+
+    let isAlphanumeric = func(s : Text) : Bool {
+      let chars = Text.toIter(s);
+      for (c in chars) {
+        if (not ((c >= 'a' and c <= 'z') or (c >= 'A' and c <= 'Z') or (c >= '0' and c <= '9') or (c == ' '))) {
+          return false;
+        };
+      };
+      return true;
+    };
+
+    if (not isAlphanumeric(username)) {
+      return false;
+    };
+    return true;
+  };
+
   /* ----- Calls to Data Canister ----- */
 
   public shared ({ caller }) func getCountries(dto : BaseQueries.GetCountries) : async Result.Result<BaseQueries.Countries, Enums.Error> {
@@ -357,6 +505,19 @@ actor class Self() = this {
   system func postupgrade() {
     setProfileData();
     setLeaderboardPayoutRequests();
+
+    stable_golfers := golferManager.getStableGolfers();
+    stable_golf_courses := golfCourseManager.getStableGolfCourses();
+
+    stable_tournaments := tournamentManager.getStableTournaments();
+
+
+    userManager.setStableProfiles(stable_profiles);
+    userManager.setStablePredictions(stable_predictions);
+    golferManager.setStableGolfers(stable_golfers);
+    golfCourseManager.setStableGolfCourses(stable_golf_courses);
+    fantasyLeaderboardManager.setStableLeaderboards(stable_fantasy_leaderboards);
+    tournamentManager.setStableTournaments(stable_tournaments);
     stable_membership_timer_id := Timer.recurringTimer<system>(#seconds(86_400), checkMembership);
     ignore Timer.setTimer<system>(#nanoseconds(Int.abs(1)), postUpgradeCallback);
   };
