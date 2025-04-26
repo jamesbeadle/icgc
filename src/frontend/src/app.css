@@ -1,0 +1,376 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.bg-background {
+  background-image: url("/background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.modal-backdrop {
+  z-index: 1000;
+}
+
+.modal-row {
+  @apply flex items-center justify-between p-2;
+}
+
+.modal-header-row {
+  @apply flex items-center justify-between p-2 mt-4 border-t border-b border-gray-600 bg-light-gray;
+}
+
+.fpl-button {
+  background-color: #2ce3a6;
+  color: black;
+  border: 1px solid black;
+  @apply hover:border-BrandSlateGray hover:bg-BrandGreen/80;
+}
+
+.inactive-fpl-button {
+  @apply bg-BrandLightGray;
+}
+
+.fpl-dropdown {
+  background-color: transparent !important;
+  border: none;
+  @apply rounded-sm p-2 text-center min-w-[125px];
+}
+
+.fpl-dropdown option {
+  background-color: black;
+  border: none;
+}
+
+input {
+  background-color: #2e323a !important;
+  color: white !important;
+}
+
+.input-header {
+  @apply text-sm text-BrandLightGray;
+}
+
+.bg-light-gray {
+  background-color: rgba(46, 50, 58, 0.6);
+}
+
+.fpl-cancel-btn {
+  @apply border rounded-sm bg-BrandBlack border-BrandSlateGray;
+}
+
+.oc-logo {
+  font-family: "Manrope";
+  font-weight: bold;
+}
+
+.bg-panel-color {
+  background-color: rgba(36, 37, 41, 0.9);
+  border-radius: 8px;
+  border: 1px solid #2e323a !important;
+}
+
+.bg-brand-light-gray {
+  background-color: #2e323a;
+}
+
+.gray-border {
+  border-color: #454b56;
+  border-top-width: 1px;
+}
+
+.active-tab {
+  border-bottom: 4px #2ce3a6 solid;
+}
+
+.captain-row {
+  background-color: rgba(44, 227, 166, 0.1) !important;
+}
+
+.inactive-btn {
+  background-color: black;
+  color: white;
+}
+
+.toast {
+  background-color: #2ce3a6 !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  border-radius: 4px !important;
+}
+.error > .toast {
+  background-color: #f27557 !important;
+}
+
+.unplayed-divider {
+  background-color: #949494;
+  @apply status-divider;
+}
+
+.active-divider {
+  background-color: #2c8be3;
+  @apply status-divider;
+}
+
+.complete-divider {
+  background-color: #2ce3a6;
+  @apply status-divider;
+}
+
+.finalised-divider {
+  background-color: #7f56f1;
+  @apply status-divider;
+}
+
+.status-divider {
+  @apply w-[4px] bg-gray-400 mr-2;
+}
+
+.active-border {
+  border-color: #2ce3a6;
+}
+
+[data-tid="busy"] {
+  background-color: rgba(36, 37, 41, 0.7) !important;
+  z-index: 99999 !important;
+}
+
+.page-wrapper {
+  @apply mx-4 my-4 xs:mx-6 sm:mx-8 lg:mx-10;
+}
+
+.page-header-wrapper {
+  @apply flex flex-col w-full lg:flex-row lg:space-x-4;
+}
+
+.content-panel {
+  @apply flex items-center justify-start flex-grow p-2 mb-4 space-x-2 text-white rounded-md bg-panel sm:space-x-3 md:space-x-4 xs:p-3 sm:p-4;
+}
+
+.content-panel-header {
+  @apply text-gray-300 text-xxs xs:text-sm sm:text-base lg:text-sm;
+}
+
+.content-panel-stat {
+  @apply mt-2 mb-2 text-xs font-bold xs:text-sm sm:text-2xl md:text-3xl lg:text-2xl;
+}
+
+.vertical-divider {
+  min-width: 1px;
+  min-height: 50px;
+  background-color: #37393c;
+  @apply self-stretch flex-shrink-0 w-px mx-2;
+}
+
+.horizontal-divider {
+  min-height: 2px;
+  @apply self-stretch flex-shrink-0 h-px bg-gray-400;
+}
+
+.panel-header {
+  @apply text-xs font-bold xs:text-sm sm:text-2xl md:text-3xl lg:text-2xl;
+}
+
+.side-panel-header {
+  @apply text-xs xs:text-sm sm:text-2xl md:text-3xl xl:text-base 2xl:text-lg;
+}
+
+.tab-switcher-label {
+  @apply font-bold text-xs xl:text-base 
+    px-4 py-2 my-4 min-w-[100px] lg:min-w-[125px];
+}
+
+.button-base {
+  @apply w-full px-4 py-2 text-xs rounded md:w-auto md:text-xs xl:text-base;
+}
+
+.side-button-base {
+  @apply w-full px-4 py-2 my-4 text-xs rounded-md xl:text-base;
+}
+
+.default-text {
+  @apply text-xxs xs:text-xs sm:text-base;
+}
+
+.default-header {
+  @apply text-xl font-semibold text-white;
+}
+
+.default-sub-header {
+  @apply text-lg font-bold;
+}
+
+.times-button {
+  @apply text-3xl text-white;
+}
+
+.tiny-text {
+  @apply text-xxs lg:text-sm;
+}
+
+.contained-text {
+  @apply text-xxs sm:text-base md:text-lg;
+}
+
+.countdown-text {
+  @apply ml-1 text-xs text-gray-300 xs:text-sm sm:text-2xl md:text-3xl lg:text-2xl;
+}
+
+.bigger-text {
+  @apply text-xs xs:text-base sm:text-lg;
+}
+
+.smaller-text {
+  @apply text-xxs xs:text-xs sm:text-sm;
+}
+
+/* global.css */
+:root {
+  --dialog-width: 90% !important;
+  --dialog-max-width: 600px !important;
+  --dialog-min-height: 100px !important;
+  --dialog-height: auto !important;
+  --dialog-max-height: 80vh !important;
+  --dialog-border-radius: 1px !important;
+}
+
+.default-button {
+  @apply px-3 py-1 text-lg text-center text-black transition border border-black rounded-lg md:px-4;
+}
+
+.bg-panel {
+  @apply w-full bg-panel-color;
+}
+
+.event-tag {
+  background-color: #2ce3a6;
+  color: #161819;
+  @apply px-2;
+}
+
+header {
+  background-color: rgba(36, 37, 41, 0.9);
+}
+.nav-underline {
+  position: relative;
+  display: inline-block;
+  color: white;
+}
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: #2ce3a6;
+  bottom: 0;
+  left: 0;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+  color: #2ce3a6;
+}
+
+.nav-underline:hover::after,
+.nav-underline.active::after {
+  transform: scaleX(1);
+  color: #2ce3a6;
+}
+
+.nav-underline:hover::after {
+  transform: scaleX(1);
+  background-color: gray;
+}
+.nav-button {
+  background-color: transparent;
+}
+.nav-button:hover {
+  background-color: transparent;
+  color: #2ce3a6;
+  border: none;
+}
+
+.text-brand-green {
+  color: #2ce3a6;
+}
+
+.text-brand-red {
+  color: #cf5d43;
+}
+
+.striped tr:nth-child(odd) {
+  background-color: rgba(46, 50, 58, 0.6);
+}
+
+.top-player-detail {
+  @apply min-w-[60px] xs:min-w-[90px] sm:min-w-[120px] max-w-[60px] xs:max-w-[90px] sm:max-w-[120px];
+}
+
+.captain-icon {
+  @apply w-3 h-3 xs:w-4 xs:h-4 sm:w-7 sm:h-7 md:w-6 md:h-6;
+}
+
+.bonus-panel-inner {
+  background-color: rgba(46, 50, 58, 0.9);
+}
+
+.file-upload-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+.btn-file-upload {
+  width: 100%;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+}
+
+input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.truncate-50 {
+  @apply truncate min-w-[50px] max-w-[50px] xs:min-w-[60px] xs:max-w-[60px];
+}
+
+.bg-info {
+  @apply bg-BrandPurple;
+}
+
+.bg-success {
+  @apply bg-BrandSuccess;
+}
+
+.bg-error {
+  @apply bg-BrandWarning;
+}
+
+.bg-frontend-update {
+  @apply bg-BrandSlateGray;
+}
+
+.header-badge {
+  @apply h-6 m-2 sm:h-7 md:h-8 xl:h-10 sm:my-4;
+}
