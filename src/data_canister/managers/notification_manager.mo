@@ -4,11 +4,6 @@ import Result "mo:base/Result";
 import CanisterIds "mo:waterway-mops/CanisterIds";
 import Enums "mo:waterway-mops/Enums";
 import Ids "mo:waterway-mops/Ids";
-import FootballEnums "mo:waterway-mops/football/FootballEnums";
-import NotificationEnums "mo:waterway-mops/football/NotificationEnums";
-import NotificationCommands "mo:waterway-mops/football/NotificationCommands";
-import LeagueNotificationCommands "mo:waterway-mops/football/LeagueNotificationCommands";
-import PlayerNotificationCommands "mo:waterway-mops/football/PlayerNotificationCommands";
 
 module {
 
@@ -16,9 +11,8 @@ module {
 
     // Add all application_canister function definitions to all apps, implement and if not required then create different groups than the default notification group
 
-    let defaultNotificationGroup: [(FootballEnums.App, Ids.CanisterId)] = [
-        (#OpenFPL, CanisterIds.OPENFPL_BACKEND_CANISTER_ID),
-        (#OpenWSL, CanisterIds.OPENWSL_BACKEND_CANISTER_ID),
+    let defaultNotificationGroup: [(GolfEnums.App, Ids.CanisterId)] = [
+        (#GolfPad, CanisterIds.GOLFPAD_BACKEND_CANISTER_ID)
         (#JeffBets, CanisterIds.JEFF_BETS_BACKEND_CANISTER_ID)
     ];
 

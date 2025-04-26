@@ -1,6 +1,4 @@
 import Ids "mo:waterway-mops/Ids";
-import FootballIds "mo:waterway-mops/football/FootballIds";
-import FootballDefinitions "mo:waterway-mops/football/FootballDefinitions";
 import BaseDefinitions "mo:waterway-mops/BaseDefinitions";
 import ICFCEnums "mo:waterway-mops/ICFCEnums";
 
@@ -13,13 +11,13 @@ module UserQueries = {
     public type GetICFCLinkStatus = {
         principalId : Ids.PrincipalId;
     };
+
     public type CombinedProfile = {
         principalId : Ids.PrincipalId;
         username : Text;
         termsAccepted : Bool;
         profilePicture : ?Blob;
         profilePictureType : Text;
-        favouriteClubId : ?FootballIds.ClubId;
         createDate : Int;
         displayName : Text;
         membershipType : ICFCEnums.MembershipType;
@@ -27,8 +25,6 @@ module UserQueries = {
         createdOn : Int;
         termsAgreed : Bool;
         membershipExpiryTime : Int;
-        favouriteLeagueId : ?FootballIds.LeagueId;
-        nationalityId : ?Ids.CountryId;
     };
 
     public type Profile = {
@@ -37,7 +33,6 @@ module UserQueries = {
         termsAccepted : Bool;
         profilePicture : ?Blob;
         profilePictureType : Text;
-        favouriteClubId : ?FootballIds.ClubId;
         createDate : Int;
     };
 
@@ -58,8 +53,6 @@ module UserQueries = {
         profilePicture : ?Blob;
         termsAgreed : Bool;
         membershipExpiryTime : Int;
-        favouriteLeagueId : ?FootballIds.LeagueId;
-        favouriteClubId : ?FootballIds.ClubId;
         nationalityId : ?Ids.CountryId;
     };
 
@@ -89,7 +82,6 @@ module UserQueries = {
         username : Text;
         profilePicture : ?Blob;
         profilePictureType : Text;
-        favouriteClubId : ?FootballIds.ClubId;
         createDate : Int;
         gameweeks : [FantasyTeamSnapshot];
         weeklyPosition : Int;
@@ -109,77 +101,5 @@ module UserQueries = {
 
     public type GetICFCDataHash = {
         principalId : Ids.PrincipalId;
-    };
-
-    public type TeamSetup = {
-        principalId : Text;
-        username : Text;
-        transfersAvailable : Nat8;
-        monthlyBonusesAvailable : Nat8;
-        bankQuarterMillions : Nat16;
-        playerIds : [FootballIds.ClubId];
-        captainId : FootballIds.ClubId;
-        goalGetterGameweek : FootballDefinitions.GameweekNumber;
-        goalGetterPlayerId : FootballIds.ClubId;
-        passMasterGameweek : FootballDefinitions.GameweekNumber;
-        passMasterPlayerId : FootballIds.ClubId;
-        noEntryGameweek : FootballDefinitions.GameweekNumber;
-        noEntryPlayerId : FootballIds.ClubId;
-        teamBoostGameweek : FootballDefinitions.GameweekNumber;
-        teamBoostClubId : FootballIds.ClubId;
-        safeHandsGameweek : FootballDefinitions.GameweekNumber;
-        safeHandsPlayerId : FootballIds.ClubId;
-        captainFantasticGameweek : FootballDefinitions.GameweekNumber;
-        captainFantasticPlayerId : FootballIds.ClubId;
-        oneNationGameweek : FootballDefinitions.GameweekNumber;
-        oneNationCountryId : Ids.CountryId;
-        prospectsGameweek : FootballDefinitions.GameweekNumber;
-        braceBonusGameweek : FootballDefinitions.GameweekNumber;
-        hatTrickHeroGameweek : FootballDefinitions.GameweekNumber;
-        transferWindowGameweek : FootballDefinitions.GameweekNumber;
-        canisterId : Ids.CanisterId;
-        firstGameweek : Bool;
-    };
-
-    public type GetFantasyTeamSnapshot = {
-        principalId : Ids.PrincipalId;
-        seasonId : FootballIds.SeasonId;
-        gameweek : FootballDefinitions.GameweekNumber;
-    };
-
-    public type FantasyTeamSnapshot = {
-        principalId : Ids.PrincipalId;
-        username : Text;
-        favouriteClubId : ?FootballIds.ClubId;
-        monthlyBonusesAvailable : Nat8;
-        transfersAvailable : Nat8;
-        bankQuarterMillions : Nat16;
-        teamValueQuarterMillions : Nat16;
-        playerIds : [FootballIds.PlayerId];
-        captainId : FootballIds.PlayerId;
-        gameweek : FootballDefinitions.GameweekNumber;
-        goalGetterGameweek : FootballDefinitions.GameweekNumber;
-        goalGetterPlayerId : FootballIds.PlayerId;
-        passMasterGameweek : FootballDefinitions.GameweekNumber;
-        passMasterPlayerId : FootballIds.PlayerId;
-        noEntryGameweek : FootballDefinitions.GameweekNumber;
-        noEntryPlayerId : FootballIds.PlayerId;
-        teamBoostGameweek : FootballDefinitions.GameweekNumber;
-        teamBoostClubId : FootballIds.ClubId;
-        safeHandsGameweek : FootballDefinitions.GameweekNumber;
-        safeHandsPlayerId : FootballIds.PlayerId;
-        captainFantasticGameweek : FootballDefinitions.GameweekNumber;
-        captainFantasticPlayerId : FootballIds.PlayerId;
-        oneNationGameweek : FootballDefinitions.GameweekNumber;
-        oneNationCountryId : Ids.CountryId;
-        prospectsGameweek : FootballDefinitions.GameweekNumber;
-        braceBonusGameweek : FootballDefinitions.GameweekNumber;
-        hatTrickHeroGameweek : FootballDefinitions.GameweekNumber;
-        points : Int16;
-        monthlyPoints : Int16;
-        seasonPoints : Int16;
-        transferWindowGameweek : FootballDefinitions.GameweekNumber;
-        month : BaseDefinitions.CalendarMonth;
-        seasonId : FootballIds.SeasonId;
     };
 };

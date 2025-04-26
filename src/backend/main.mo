@@ -14,8 +14,6 @@ import Nat64 "mo:base/Nat64";
 import Option "mo:base/Option";
 import Enums "mo:waterway-mops/Enums";
 import BaseTypes "mo:waterway-mops/BaseTypes";
-import LeagueQueries "mo:waterway-mops/queries/football-queries/LeagueQueries";
-import ClubQueries "mo:waterway-mops/queries/football-queries/ClubQueries";
 import Ids "mo:waterway-mops/Ids";
 import SNSToken "mo:waterway-mops/sns-wrappers/ledger";
 import CanisterIds "mo:waterway-mops/CanisterIds";
@@ -26,7 +24,6 @@ import Account "mo:waterway-mops/Account";
 import CanisterQueries "mo:waterway-mops/canister-management/CanisterQueries";
 import CanisterManager "mo:waterway-mops/canister-management/CanisterManager";
 import CanisterCommands "mo:waterway-mops/canister-management/CanisterCommands";
-import LeaderboardPayoutCommands "mo:waterway-mops/football/LeaderboardPayoutCommands";
 import Countries "mo:waterway-mops/def/Countries";
 import ICFCTypes "mo:waterway-mops/ICFCTypes";
 
@@ -46,7 +43,6 @@ import PayoutCommands "commands/payout_commands";
 /* ----- Managers ----- */
 
 import ProfileManager "managers/profile_manager";
-import GolfChannelManager "managers/football_channel_manager";
 import SNSManager "managers/sns_manager";
 
 /* ----- Environment ----- */
@@ -70,7 +66,6 @@ actor class Self() = this {
 
   /* ----- Domain Object Managers ----- */
   private let profileManager = ProfileManager.ProfileManager();
-  private let footballChannelManager = FootballChannelManager.FootballChannelManager();
   private let snsManager = SNSManager.SNSManager();
   private let canisterManager = CanisterManager.CanisterManager();
   private let leaderboardPayoutManager = LeaderboardPayoutManager.LeaderboardPayoutManager();
@@ -392,7 +387,6 @@ actor class Self() = this {
 
   system func preupgrade() {
     backupProfileData();
-    backupFootballChannelData();
     backupLeaderboardPayoutRequests();
 
     // stop membership timer
@@ -403,7 +397,6 @@ actor class Self() = this {
 
   system func postupgrade() {
     setProfileData();
-    setFootballChannelData();
     setLeaderboardPayoutRequests();
     stable_membership_timer_id := Timer.recurringTimer<system>(#seconds(86_400), checkMembership);
     ignore Timer.setTimer<system>(#nanoseconds(Int.abs(1)), postUpgradeCallback);
@@ -438,16 +431,6 @@ actor class Self() = this {
     stable_neurons_used_for_membership := profileManager.getStableNeuronsUsedforMembership();
   };
 
-  private func backupFootballChannelData() {
-    stable_podcast_channel_canister_index := footballChannelManager.getStableCanisterIndex();
-    stable_active_podcast_channel_canister_id := footballChannelManager.getStableActiveCanisterId();
-    stable_podcast_channel_names := footballChannelManager.getStableFootballChannelNames();
-    stable_unique_podcast_channel_canister_ids := footballChannelManager.getStableUniqueCanisterIds();
-    stable_total_podcast_channels := footballChannelManager.getStableTotalFootballChannels();
-    stable_next_podcast_channel_id := footballChannelManager.getStableNextFootballChannelId();
-
-  };
-
   private func setProfileData() {
     profileManager.setStableCanisterIndex(stable_profile_canister_index);
     profileManager.setStableActiveCanisterId(stable_active_profile_canister_id);
@@ -455,15 +438,6 @@ actor class Self() = this {
     profileManager.setStableUniqueCanisterIds(stable_unique_profile_canister_ids);
     profileManager.setStableTotalProfiles(stable_total_profile);
     profileManager.setStableNeuronsUsedforMembership(stable_neurons_used_for_membership);
-  };
-
-  private func setFootballChannelData() {
-    footballChannelManager.setStableCanisterIndex(stable_podcast_channel_canister_index);
-    footballChannelManager.setStableActiveCanisterId(stable_active_podcast_channel_canister_id);
-    footballChannelManager.setStableFootballChannelNames(stable_podcast_channel_names);
-    footballChannelManager.setStableUniqueCanisterIds(stable_unique_podcast_channel_canister_ids);
-    footballChannelManager.setStableTotalFootballChannels(stable_total_podcast_channels);
-    footballChannelManager.setStableNextFootballChannelId(stable_next_podcast_channel_id);
   };
 
   private func updateProfileCanisterWasms() : async () {
