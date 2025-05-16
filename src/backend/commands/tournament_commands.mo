@@ -1,27 +1,28 @@
-import MopsGolfIds "../mops_golf_ids";
-import MopsGolfEnums "../mops_golf_enums";
-module GolfCourseCommands {
+import GolfIds "mo:waterway-mops/domain/golf/Ids";
+import TournamentEnums "mo:waterway-mops/domain/golf/enums/TournamentEnums";
+
+module TournamentCommands {
     public type CreateTournament = {
         name: Text;
     };
 
     public type CreateTournamentInstance = {
-        tournamentId: MopsGolfIds.TournamentId;
-        golfCourseId: MopsGolfIds.GolfCourseId;
+        tournamentId: GolfIds.TournamentId;
+        golfCourseId: GolfIds.GolfCourseId;
         year: Nat16;
         startDate: Int;
         endDate: Int;
     };
 
     public type AddTournamentResult = {
-        tournamentId: MopsGolfIds.TournamentId;
+        tournamentId: GolfIds.TournamentId;
         year: Nat16;
-        golferId: MopsGolfIds.ProGolferId;
+        golferId: GolfIds.ProGolferId;
     };
 
     public type UpdateTournamentStage = {
-        tournamentId: MopsGolfIds.TournamentId;
+        tournamentId: GolfIds.TournamentId;
         year: Nat16;
-        stage: MopsGolfEnums.TournamentStage;
+        stage: TournamentEnums.TournamentStage;
     };
 }

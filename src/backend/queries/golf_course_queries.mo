@@ -42,6 +42,7 @@ module GolfCourseQueries {
         par: Nat8;
     };
     
+    
 }
 
   

@@ -102,4 +102,78 @@ module UserQueries = {
     public type GetICGCDataHash = {
         principalId : Ids.PrincipalId;
     };
+
+
+
+
+    public type GetFriends = {
+
+    };
+
+    public type Friends = {
+
+    };
+
+    public type GetFriendRequests = {
+
+    };
+
+    public type FriendRequests = {
+
+    };
+
+    public type GetGames = {
+
+    };
+
+    public type Games = {
+
+    };
+
+    public type GetGolfShots = {
+        
+    };
+
+    public type GolfShots = {
+
+    };
+
+    public type GetGolfers = {
+        searchTerm
+        page
+        homeCourseId
+    };
+
+    public type Golfers = {
+
+    };
+
+    public type GetFriendRequests = {
+
+    };
+
+    public type FriendRequests = {
+
+    };
+
+    public type GetFriends = {
+
+    };
+
+    public type GetAverageYardages = {
+
+    };
+
+    public type AverageYardages = {
+        
+    };
+
+    public type CheckUsernameAvailable = {
+        username: Text;
+    };
+
+    public type UsernameAvailable = {
+        available: Bool;
+        username: Text;
+    };
 };

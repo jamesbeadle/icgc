@@ -1,0 +1,11 @@
+{
+  "backend": {
+    "ic": "l4zxo-7iaaa-aaaal-qsnsa-cai"
+  },
+  "data_canister": {
+    "ic": "lj6gd-6aaaa-aaaal-qsnrq-cai"
+  },
+  "frontend": {
+    "ic": "l3yr2-sqaaa-aaaal-qsnsq-cai"
+  }
+}
