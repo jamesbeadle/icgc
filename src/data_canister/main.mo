@@ -22,20 +22,12 @@ import TrieMap "mo:base/TrieMap";
 
 /* ----- WWL Mops Packages ----- */
 
-import SHA224 "mo:waterway-mops/SHA224";
-import Countries "mo:waterway-mops/def/Countries";
-import Ids "mo:waterway-mops/Ids";
-import Enums "mo:waterway-mops/Enums";
 
-import CanisterIds "mo:waterway-mops/CanisterIds";
-import BaseUtilities "mo:waterway-mops/BaseUtilities";
-import BaseDefinitions "mo:waterway-mops/BaseDefinitions";
-import DateTimeUtilities "mo:waterway-mops/DateTimeUtilities";
+
+
 
 /* ----- Queries ----- */
-import ProGolferQueries "queries/pro_golfer_queries";
-import GolfCourseQueries "queries/golf_course_queries";
-import TournamentQueries "queries/tournament_queries";
+
 
 /* ----- Commands ----- */
 
@@ -45,16 +37,8 @@ import TournamentCommands "commands/tournament_commands";
 
 import Environment "environment";
 import AppQueries "queries/app_queries";
-import SummaryTypes "summary_types";
 import NotificationManager "managers/notification_manager";
 
-import BaseTypes "mo:waterway-mops/BaseTypes";
-import Management "mo:waterway-mops/Management";
-import CanisterQueries "mo:waterway-mops/canister-management/CanisterQueries";
-import CanisterCommands "mo:waterway-mops/canister-management/CanisterCommands";
-import CanisterManager "mo:waterway-mops/canister-management/CanisterManager";
-import LogsManager "mo:waterway-mops/logs-management/LogsManager";
-import LogsCommands "mo:waterway-mops/logs-management/LogsCommands";
 
 actor Self {
 
