@@ -12,20 +12,19 @@ import Buffer "mo:base/Buffer";
 import Array "mo:base/Array";
 import Nat64 "mo:base/Nat64";
 import Option "mo:base/Option";
-import Enums "mo:waterway-mops/Enums";
-import BaseTypes "mo:waterway-mops/BaseTypes";
-import Ids "mo:waterway-mops/Ids";
-import SNSToken "mo:waterway-mops/sns-wrappers/ledger";
-import CanisterIds "mo:waterway-mops/CanisterIds";
-import Management "mo:waterway-mops/Management";
-import BaseQueries "mo:waterway-mops/queries/BaseQueries";
-import CanisterUtilities "mo:waterway-mops/CanisterUtilities";
-import Account "mo:waterway-mops/Account";
-import CanisterQueries "mo:waterway-mops/canister-management/CanisterQueries";
-import CanisterManager "mo:waterway-mops/canister-management/CanisterManager";
-import CanisterCommands "mo:waterway-mops/canister-management/CanisterCommands";
-import Countries "mo:waterway-mops/def/Countries";
-import ICGCTypes "mo:waterway-mops/ICGCTypes";
+import Enums "mo:waterway-mops/base/Enums";
+import BaseTypes "mo:waterway-mops/base/Types";
+import Ids "mo:waterway-mops/base/Ids";
+import SNSToken "mo:waterway-mops/base/def/sns-wrappers/ledger";
+import CanisterIds "mo:waterway-mops/product/wwl/CanisterIds";
+import Management "mo:waterway-mops/base/def/Management";
+import BaseQueries "mo:waterway-mops/base/BaseQueries";
+import CanisterUtilities "mo:waterway-mops/product/wwl/canister-management/CanisterUtilities";
+import Account "mo:waterway-mops/base/def/Account";
+import CanisterQueries "mo:waterway-mops/product/wwl/canister-management/CanisterQueries";
+import CanisterManager "mo:waterway-mops/product/wwl/canister-management/CanisterManager";
+import CanisterCommands "mo:waterway-mops/product/wwl/canister-management/CanisterCommands";
+import Countries "mo:waterway-mops/base/Countries";
 
 /* ----- Canister Definition Files ----- */
 
