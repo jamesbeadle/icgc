@@ -1,14 +1,14 @@
-import Types "../data-types/types";
+import GolfTypes "mo:waterway-mops/golf/GolfTypes";
+
 module TournamentQueries {
     
     public type GetTournament = {
-        tournamentId: Types.TournamentId;
+        tournamentId: GolfTypes.TournamentId;
     };
 
     public type Tournament = {
         tournamentId: Types.TournamentId;
-
-
+        
     };
     
     public type GetTournamentInstance = {

@@ -1,4 +1,4 @@
-import Ids "mo:waterway-mops/Ids";
+import Ids "mo:waterway-mops/base/Ids";
 import AppEnums "../enums/app_enums";
 
 module UserCommands = {
@@ -27,5 +27,27 @@ module UserCommands = {
         membershipExpiryTime : Int;
         nationalityId : ?Ids.CountryId;
     };
+
+    public type CreateFriendRequest = {
+        
+    };
+
+    public type DeleteFriendRequest = {
+
+    };
+
+    public type AcceptFriendRequest = {
+
+    };
+
+    public type RejectFriendRequest = {
+
+    };
+
+    public type RemoveFriend = {
+
+    };
+
+    
 
 };

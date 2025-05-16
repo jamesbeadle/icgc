@@ -1,5 +1,6 @@
-import Ids "mo:waterway-mops/Ids";
-import MopsGolfIds "../data_canister/mops_golf_ids";
+import Ids "mo:waterway-mops/base/Ids";
+import GolfIds "mo:waterway-mops/domain/golf/Ids";
+
 module GolfCourseCommands {
     public type CreateGolfCourse = {
         name: Text;
@@ -20,7 +21,7 @@ module GolfCourseCommands {
     };
 
     public type UpdateGolfCourse = {
-        golfCourseId: MopsGolfIds.GolfCourseId;
+        golfCourseId: GolfIds.GolfCourseId;
         name: Text;
         holes: [GolfHole];
     };

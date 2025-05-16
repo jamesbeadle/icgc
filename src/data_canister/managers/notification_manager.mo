@@ -1,13 +1,12 @@
 import Iter "mo:base/Iter";
 import Result "mo:base/Result";
 
-import CanisterIds "mo:waterway-mops/CanisterIds";
-import Enums "mo:waterway-mops/Enums";
-import Ids "mo:waterway-mops/Ids";
-import GolfEnums "mo:waterway-mops/golf/GolfEnums";
-import BaseUtilities "mo:waterway-mops/BaseUtilities";
-import LogsManager "mo:waterway-mops/logs-management/LogsManager";
-import { message } "mo:base/Error";
+import CanisterIds "mo:waterway-mops/product/wwl/CanisterIds";
+import Enums "mo:waterway-mops/base/Enums";
+import AppEnums "mo:waterway-mops/product/wwl/Enums";
+import Ids "mo:waterway-mops/base/Ids";
+import ICGCEnums "mo:waterway-mops/product/icgc/Enums";
+import LogsManager "mo:waterway-mops/product/wwl/logs/LogsManager";
 
 module {
 
@@ -15,12 +14,12 @@ module {
         let logsManager = LogsManager.LogsManager();
         // Add all application_canister function definitions to all apps, implement and if not required then create different groups than the default notification group
 
-        let defaultNotificationGroup : [GolfEnums.App] = [
+        let defaultNotificationGroup : [ICGCEnums.SubApp] = [
             #GolfPad
             #JeffBets
         ];
 
-        public func distributeNotification(notificationType : NotificationEnums.NotificationType, dto : NotificationCommands.Notification) : async Result.Result<(), Enums.Error> {
+        public func distributeNotification(notificationType : ICGCEnums.NotificationType, dto : ICGCEnums.Notification) : async Result.Result<(), Enums.Error> {
 
             try {
                 switch (notificationType) {
