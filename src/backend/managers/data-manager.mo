@@ -1,6 +1,6 @@
 import Result "mo:base/Result";
-import CanisterIds "mo:waterway-mops/product/wwl/CanisterIds";
-import Enums "mo:waterway-mops/base/Enums";
+import CanisterIds "mo:waterway-mops/product/wwl/canister-ids";
+import Enums "mo:waterway-mops/base/enums";
 import DataCanister "canister:data_canister";
 
 module {

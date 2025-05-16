@@ -1,5 +1,5 @@
-import Ids "mo:waterway-mops/base/Ids";
-import AppIds "../Ids";
+import Ids "mo:waterway-mops/base/ids";
+import AppIds "../ids";
 
 module GameCommands = {
 

@@ -1,5 +1,5 @@
 
-import Enums "mo:waterway-mops/Enums";
+import Enums "mo:waterway-mops/base/enums";
 import Result "mo:base/Result";
 import List "mo:base/List";
 import Array "mo:base/Array";
@@ -7,9 +7,9 @@ import Order "mo:base/Order";
 import Buffer "mo:base/Buffer";
 import Nat8 "mo:base/Nat8";
 import Iter "mo:base/Iter";
-import GolfCourseQueries "../queries/golf_course_queries";
-import GolfCourseCommands "../commands/golf_course_commands";
-import Types "../data-types/types";
+import GolfCourseQueries "../queries/golf-course-queries";
+import GolfCourseCommands "../commands/golf-course-commands";
+import Types "../types";
 import Environment "../environment";
 
 module {

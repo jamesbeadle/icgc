@@ -1,7 +1,7 @@
-import Ids "mo:waterway-mops/base/Ids";
-import AppEnums "../enums/app_enums";
+import Ids "mo:waterway-mops/base/ids";
+import AppEnums "../enums/app-enums";
 
-module UserCommands = {
+module ProfileCommands = {
 
     public type LinkICGCProfile = {
         principalId : Ids.PrincipalId;

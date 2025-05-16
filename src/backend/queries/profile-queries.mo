@@ -1,8 +1,7 @@
-import Ids "mo:waterway-mops/Ids";
-import BaseDefinitions "mo:waterway-mops/BaseDefinitions";
-import ICGCEnums "mo:waterway-mops/ICGCEnums";
+import Ids "mo:waterway-mops/base/ids";
+import ICGCEnums "mo:waterway-mops/product/icgc/enums";
 
-module UserQueries = {
+module ProfileQueries = {
 
     public type GetProfile = {
         principalId : Ids.PrincipalId;
@@ -69,42 +68,9 @@ module UserQueries = {
         expiresOn : ?Int;
     };
 
-    public type GetManager = {
-        principalId : Text;
-    };
-
-    public type GetManagerByUsername = {
-        username : Text;
-    };
-
-    public type Manager = {
-        principalId : Ids.PrincipalId;
-        username : Text;
-        profilePicture : ?Blob;
-        profilePictureType : Text;
-        createDate : Int;
-        gameweeks : [FantasyTeamSnapshot];
-        weeklyPosition : Int;
-        monthlyPosition : Int;
-        seasonPosition : Int;
-        weeklyPositionText : Text;
-        monthlyPositionText : Text;
-        seasonPositionText : Text;
-        weeklyPoints : Int16;
-        monthlyPoints : Int16;
-        seasonPoints : Int16;
-    };
-
-    public type GetTeamSetup = {
-        principalId : Text;
-    };
-
     public type GetICGCDataHash = {
         principalId : Ids.PrincipalId;
     };
-
-
-
 
     public type GetFriends = {
 
@@ -139,24 +105,10 @@ module UserQueries = {
     };
 
     public type GetGolfers = {
-        searchTerm
-        page
-        homeCourseId
+        
     };
 
     public type Golfers = {
-
-    };
-
-    public type GetFriendRequests = {
-
-    };
-
-    public type FriendRequests = {
-
-    };
-
-    public type GetFriends = {
 
     };
 

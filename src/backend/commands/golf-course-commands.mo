@@ -1,5 +1,5 @@
-import Ids "mo:waterway-mops/base/Ids";
-import GolfIds "mo:waterway-mops/domain/golf/Ids";
+import Ids "mo:waterway-mops/base/ids";
+import GolfIds "mo:waterway-mops/domain/golf/ids";
 
 module GolfCourseCommands {
     public type CreateGolfCourse = {

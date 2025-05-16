@@ -1,6 +1,6 @@
 
-import Types "../data-types/types";
-import Ids "mo:waterway-mops/Ids";
+import Types "../types";
+import Ids "mo:waterway-mops/base/ids";
 
 module GolferQueries {
     

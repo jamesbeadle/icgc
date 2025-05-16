@@ -1,6 +1,4 @@
-
-
-import GolfIds "../../../../domain/golf/Ids";
+import GolfIds "mo:waterway-mops/domain/golf/ids";
 
 module GolfClubQueries {
     public type GetGolfClubs = {

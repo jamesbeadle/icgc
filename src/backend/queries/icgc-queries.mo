@@ -1,5 +1,5 @@
-import Ids "mo:waterway-mops/Ids";
-import Enums "mo:waterway-mops/ICGCEnums";
+import Ids "mo:waterway-mops/base/ids";
+import Enums "mo:waterway-mops/product/icgc/enums";
 
 module ICGCQUeries {
   public type GetICGCLinks = {};

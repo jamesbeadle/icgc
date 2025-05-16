@@ -5,14 +5,14 @@ import Text "mo:base/Text";
 import Iter "mo:base/Iter";
 import Principal "mo:base/Principal";
 import Buffer "mo:base/Buffer";
-import Ids "mo:waterway-mops/Ids";
-import Enums "mo:waterway-mops/Enums";
-import IcgcEnums "mo:waterway-mops/ICGCEnums";
-import Management "mo:waterway-mops/Management";
-import CanisterUtilities "mo:waterway-mops/CanisterUtilities";
-import CanisterIds "mo:waterway-mops/CanisterIds";
-import Helpers "mo:waterway-mops/Helpers";
-import BaseDefinitions "mo:waterway-mops/BaseDefinitions";
+
+import Ids "mo:waterway-mops/base/ids";
+import Enums "mo:waterway-mops/base/enums";
+import IcgcEnums "mo:waterway-mops/product/icgc/enums";
+import Management "mo:waterway-mops/base/def/management";
+import CanisterUtilities "mo:waterway-mops/product/wwl/canister-management/utilities";
+import CanisterIds "mo:waterway-mops/product/wwl/canister-ids";
+import BaseDefinitions "mo:waterway-mops/base/definitions";
 import Cycles "mo:base/ExperimentalCycles";
 import Time "mo:base/Time";
 import Nat64 "mo:base/Nat64";
@@ -21,14 +21,13 @@ import Array "mo:base/Array";
 import Option "mo:base/Option";
 import Nat16 "mo:base/Nat16";
 import Bool "mo:base/Bool";
-import UserQueries "../queries/user_queries";
-import AppTypes "../types/app_types";
-import UserCommands "../commands/user_commands";
-import SHA224 "mo:waterway-mops/SHA224";
-import IcgcTypes "mo:waterway-mops/ICGCTypes";
-import ICGCCommands "../commands/icgc_commands";
-import Environment "../Environment";
-import ICGCQueries "../queries/icgc_queries";
+import ProfileQueries "../queries/profile-queries";
+import AppTypes "../types";
+import ProfileCommands "../commands/profile-commands";
+import SHA224 "mo:waterway-mops/base/def/sha224";
+import ICGCCommands "../commands/icgc-commands";
+import Environment "../environment";
+import ICGCQueries "../queries/icgc-queries";
 
 module {
 
@@ -81,6 +80,8 @@ module {
         };
       };
     };
+
+    // TODO: Confirm what this is why is it needed and is the dto not supposed to be inter canister?
     public func getICGCDataHash(dto : UserQueries.GetICGCDataHash) : Result.Result<Text, Enums.Error> {
       let icgcLink : ?UserQueries.ICGCLink = userICGCLinks.get(dto.principalId);
       switch (icgcLink) {

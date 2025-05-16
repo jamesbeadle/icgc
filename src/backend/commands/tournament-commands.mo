@@ -1,5 +1,5 @@
-import GolfIds "mo:waterway-mops/domain/golf/Ids";
-import TournamentEnums "mo:waterway-mops/domain/golf/enums/TournamentEnums";
+import GolfIds "mo:waterway-mops/domain/golf/ids";
+import TournamentEnums "mo:waterway-mops/domain/golf/enums/golf-tournament-enums";
 
 module TournamentCommands {
     public type CreateTournament = {

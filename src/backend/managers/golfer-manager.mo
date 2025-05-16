@@ -1,13 +1,13 @@
-import Enums "mo:waterway-mops/Enums";
+import Enums "mo:waterway-mops/base/enums";
 import Result "mo:base/Result";
 import Array "mo:base/Array";
 import List "mo:base/List";
 import Order "mo:base/Order";
 import Buffer "mo:base/Buffer";
-import GolferQueries "../queries/golfer_queries";
-import GolferCommands "../commands/golfer_commands";
+import GolferQueries "../queries/golfer-queries";
+import GolferCommands "../commands/golfer-commands";
 
-import Types "../data-types/types";
+import Types "../types/app-types";
 import Environment "../environment";
 module {
   public class GolferManager() {

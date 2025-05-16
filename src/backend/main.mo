@@ -1,53 +1,54 @@
 /* ----- Mops Packages ----- */
+import Array "mo:base/Array";
 import Blob "mo:base/Blob";
+import Buffer "mo:base/Buffer";
+import Debug "mo:base/Debug";
 import Int "mo:base/Int";
 import Iter "mo:base/Iter";
 import Nat "mo:base/Nat";
+import Nat64 "mo:base/Nat64";
+import Option "mo:base/Option";
 import Principal "mo:base/Principal";
 import Result "mo:base/Result";
 import Text "mo:base/Text";
 import Timer "mo:base/Timer";
-import Debug "mo:base/Debug";
-import Buffer "mo:base/Buffer";
-import Array "mo:base/Array";
-import Nat64 "mo:base/Nat64";
-import Option "mo:base/Option";
-import Enums "mo:waterway-mops/base/Enums";
-import BaseTypes "mo:waterway-mops/base/Types";
-import Ids "mo:waterway-mops/base/Ids";
+
+import Account "mo:waterway-mops/base/def/account";
+import BaseTypes "mo:waterway-mops/base/types";
+import BaseQueries "mo:waterway-mops/base/queries";
+import CanisterCommands "mo:waterway-mops/product/wwl/canister-management/commands";
+import CanisterIds "mo:waterway-mops/product/wwl/canister-ids";
+import CanisterManager "mo:waterway-mops/product/wwl/canister-management/manager";
+import CanisterQueries "mo:waterway-mops/product/wwl/canister-management/queries";
+import CanisterUtilities "mo:waterway-mops/product/wwl/canister-management/utilities";
+import Countries "mo:waterway-mops/base/countries";
+import Enums "mo:waterway-mops/base/enums";
 import SNSToken "mo:waterway-mops/base/def/sns-wrappers/ledger";
-import CanisterIds "mo:waterway-mops/product/wwl/CanisterIds";
-import Management "mo:waterway-mops/base/def/Management";
-import BaseQueries "mo:waterway-mops/base/BaseQueries";
-import CanisterUtilities "mo:waterway-mops/product/wwl/canister-management/CanisterUtilities";
-import Account "mo:waterway-mops/base/def/Account";
-import CanisterQueries "mo:waterway-mops/product/wwl/canister-management/CanisterQueries";
-import CanisterManager "mo:waterway-mops/product/wwl/canister-management/CanisterManager";
-import CanisterCommands "mo:waterway-mops/product/wwl/canister-management/CanisterCommands";
-import Countries "mo:waterway-mops/base/Countries";
+import Ids "mo:waterway-mops/base/ids";
+import Management "mo:waterway-mops/base/def/management";
 
 /* ----- Canister Definition Files ----- */
 
 import ProfileCanister "canister_definitions/profile-canister";
 
 /* ----- Queries ----- */
-import AppQueries "queries/app_queries";
-import ProfileQueries "queries/profile_queries";
-import PayoutQueries "queries/payout_queries";
+import AppQueries "queries/app-queries";
+import ProfileQueries "queries/profile-queries";
+import PayoutQueries "queries/payout-queries";
 
 /* ----- Commands ----- */
-import ProfileCommands "commands/profile_commands";
-import PayoutCommands "commands/payout_commands";
+import ProfileCommands "commands/profile-commands";
+import PayoutCommands "commands/payout-commands";
 
 /* ----- Managers ----- */
 
-import ProfileManager "managers/profile_manager";
-import SNSManager "managers/sns_manager";
+import ProfileManager "managers/profile-manager";
+import SNSManager "managers/sns-manager";
 
 /* ----- Environment ----- */
 import Environment "environment";
 import Utilities "utilities/utilities";
-import LeaderboardPayoutManager "managers/leaderboard_payout_manager";
+import LeaderboardPayoutManager "managers/leaderboard-payout-manager";
 
 actor class Self() = this {
 
