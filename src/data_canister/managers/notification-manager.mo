@@ -32,7 +32,7 @@ module {
                                 return #err(#FailedInterCanisterCall);
                             };
                             let application_canister = actor (appPrincipalId) : actor {
-                                proGolferScoreAddedNotification : (dto : ProGolferNotificationCommands.ScoreAddedNotification) -> async Result.Result<(), Enums.Error>;
+                                proGolferScoreAddedNotification : (dto : TournamentNotificationCommands.ProGolferScoreAddedNotification) -> async Result.Result<(), Enums.Error>;
                             };
                             switch (dto) {
                                 case (#AddInitialFixtures foundDTO) {
