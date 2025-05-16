@@ -1,4 +1,3 @@
-import DataCanister "canister:data_canister";
 
 module AppQueries {
 

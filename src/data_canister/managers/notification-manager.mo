@@ -1,281 +1,51 @@
 import Iter "mo:base/Iter";
 import Result "mo:base/Result";
+import { message } "mo:base/Error";
 
-import CanisterIds "mo:waterway-mops/product/wwl/CanisterIds";
-import Enums "mo:waterway-mops/base/Enums";
-import AppEnums "mo:waterway-mops/product/wwl/Enums";
-import Ids "mo:waterway-mops/base/Ids";
-import ICGCEnums "mo:waterway-mops/product/icgc/Enums";
-import LogsManager "mo:waterway-mops/product/wwl/logs/LogsManager";
+import CanisterIds "mo:waterway-mops/product/wwl/canister-ids";
+import Enums "mo:waterway-mops/base/enums";
+import AppEnums "mo:waterway-mops/product/wwl/enums";
+import Ids "mo:waterway-mops/base/ids";
+import ICGCEnums "mo:waterway-mops/product/icgc/enums";
+import LogManager "mo:waterway-mops/product/wwl/log-management/manager";
+import ProGolferNotificationCommands "mo:waterway-mops/product/icgc/data-canister-notification-commands/pro-golfer-notification-commands";
+import TournamentNotificationCommands "mo:waterway-mops/product/icgc/data-canister-notification-commands/tournament-notification-commands";
 
 module {
 
     public class NotificationManager() {
-        let logsManager = LogsManager.LogsManager();
+        let logsManager = LogManager.LogManager();
         // Add all application_canister function definitions to all apps, implement and if not required then create different groups than the default notification group
 
         let defaultNotificationGroup : [ICGCEnums.SubApp] = [
-            #GolfPad
+            #GolfPad,
             #JeffBets
         ];
 
-        public func distributeNotification(notificationType : ICGCEnums.NotificationType, dto : ICGCEnums.Notification) : async Result.Result<(), Enums.Error> {
+        public func distributeNotification(notificationType : ICGCEnums.NotificationType, dto : ICGCEnums.NotificationType) : async Result.Result<(), Enums.Error> {
 
             try {
                 switch (notificationType) {
-                    case (#AddInitialFixtures) {
+                    case (#ProGolferScoreAdded) {
                         for (app in Iter.fromArray(defaultNotificationGroup)) {
                             let ?appPrincipalId = BaseUtilities.getAppCanisterId(app) else {
                                 return #err(#FailedInterCanisterCall);
                             };
                             let application_canister = actor (appPrincipalId) : actor {
-                                addInitialFixtureNotification : (dto : LeagueNotificationCommands.AddInitialFixtureNotification) -> async Result.Result<(), Enums.Error>;
+                                proGolferScoreAddedNotification : (dto : ProGolferNotificationCommands.ScoreAddedNotification) -> async Result.Result<(), Enums.Error>;
                             };
                             switch (dto) {
                                 case (#AddInitialFixtures foundDTO) {
-                                    let _ = await application_canister.addInitialFixtureNotification(foundDTO);
+                                    let _ = await application_canister.proGolferScoreAddedNotification(foundDTO);
                                 };
                                 case (_) {};
                             };
                         };
                     };
-                    case (#BeginSeason) {};
-                    case (#BeginGameweek) {
-                        for (app in Iter.fromArray(defaultNotificationGroup)) {
-                            let ?appPrincipalId = BaseUtilities.getAppCanisterId(app) else {
-                                return #err(#FailedInterCanisterCall);
-                            };
-                            let application_canister = actor (appPrincipalId) : actor {
-                                beginGameweekNotification : (dto : LeagueNotificationCommands.BeginGameweekNotification) -> async Result.Result<(), Enums.Error>;
-                            };
-                            switch (dto) {
-                                case (#BeginGameweek foundDTO) {
-                                    let _ = await application_canister.beginGameweekNotification(foundDTO);
-                                };
-                                case (_) {};
-                            };
-                        };
-                    };
-                    case (#CompleteGameweek) {
-                        for (app in Iter.fromArray(defaultNotificationGroup)) {
-                            let ?appPrincipalId = BaseUtilities.getAppCanisterId(app) else {
-                                return #err(#FailedInterCanisterCall);
-                            };
-                            let application_canister = actor (appPrincipalId) : actor {
-                                completeGameweekNotification : (dto : LeagueNotificationCommands.CompleteGameweekNotification) -> async Result.Result<(), Enums.Error>;
-                            };
-                            switch (dto) {
-                                case (#CompleteGameweek foundDTO) {
-                                    let _ = await application_canister.completeGameweekNotification(foundDTO);
-                                };
-                                case (_) {};
-                            };
-                        };
-                    };
-                    case (#CompleteFixture) {
-                        for (app in Iter.fromArray(defaultNotificationGroup)) {
-                            let ?appPrincipalId = BaseUtilities.getAppCanisterId(app) else {
-                                return #err(#FailedInterCanisterCall);
-                            };
-                            let application_canister = actor (appPrincipalId) : actor {
-                                finaliseFixtureNotification : (dto : LeagueNotificationCommands.CompleteFixtureNotification) -> async Result.Result<(), Enums.Error>;
-                            };
-                            switch (dto) {
-                                case (#CompleteFixture foundDTO) {
-                                    let _ = await application_canister.finaliseFixtureNotification(foundDTO);
-                                };
-                                case (_) {};
-                            };
-                        };
-                    };
-                    case (#FinaliseFixture) {
-                        for (app in Iter.fromArray(defaultNotificationGroup)) {
-                            let ?appPrincipalId = BaseUtilities.getAppCanisterId(app) else {
-                                return #err(#FailedInterCanisterCall);
-                            };
-                            let application_canister = actor (appPrincipalId) : actor {
-                                finaliseFixtureNotification : (dto : LeagueNotificationCommands.FinaliseFixtureNotification) -> async Result.Result<(), Enums.Error>;
-                            };
-                            switch (dto) {
-                                case (#FinaliseFixture foundDTO) {
-                                    let _ = await application_canister.finaliseFixtureNotification(foundDTO);
-                                };
-                                case (_) {};
-                            };
-                        };
-                    };
-                    case (#CompleteSeason) {
-                        for (app in Iter.fromArray(defaultNotificationGroup)) {
-
-                            let ?appPrincipalId = BaseUtilities.getAppCanisterId(app) else {
-                                return #err(#FailedInterCanisterCall);
-                            };
-                            let application_canister = actor (appPrincipalId) : actor {
-                                completeSeasonNotification : (dto : LeagueNotificationCommands.CompleteSeasonNotification) -> async Result.Result<(), Enums.Error>;
-                            };
-                            switch (dto) {
-                                case (#CompleteSeason foundDTO) {
-                                    let _ = await application_canister.completeSeasonNotification(foundDTO);
-                                };
-                                case (_) {};
-                            };
-                        };
-                    };
-                    case (#RevaluePlayerUp) {
-                        for (app in Iter.fromArray(defaultNotificationGroup)) {
-                            let ?appPrincipalId = BaseUtilities.getAppCanisterId(app) else {
-                                return #err(#FailedInterCanisterCall);
-                            };
-                            let application_canister = actor (appPrincipalId) : actor {
-                                revaluePlayerUpNotification : (dto : PlayerNotificationCommands.PlayerChangeNotification) -> async Result.Result<(), Enums.Error>;
-                            };
-                            switch (dto) {
-                                case (#RevaluePlayerUp foundDTO) {
-                                    let _ = await application_canister.revaluePlayerUpNotification(foundDTO);
-                                };
-                                case (_) {};
-                            };
-                        };
-                    };
-                    case (#RevaluePlayerDown) {
-                        for (app in Iter.fromArray(defaultNotificationGroup)) {
-                            let ?appPrincipalId = BaseUtilities.getAppCanisterId(app) else {
-                                return #err(#FailedInterCanisterCall);
-                            };
-                            let application_canister = actor (appPrincipalId) : actor {
-                                revaluePlayerDownNotification : (dto : PlayerNotificationCommands.PlayerChangeNotification) -> async Result.Result<(), Enums.Error>;
-                            };
-                            switch (dto) {
-                                case (#RevaluePlayerDown foundDTO) {
-                                    let _ = await application_canister.revaluePlayerDownNotification(foundDTO);
-                                };
-                                case (_) {};
-                            };
-                        };
-                    };
-                    case (#LoanPlayer) {
-                        for (app in Iter.fromArray(defaultNotificationGroup)) {
-                            let ?appPrincipalId = BaseUtilities.getAppCanisterId(app) else {
-                                return #err(#FailedInterCanisterCall);
-                            };
-                            let application_canister = actor (appPrincipalId) : actor {
-                                loanPlayerNotification : (dto : PlayerNotificationCommands.PlayerChangeNotification) -> async Result.Result<(), Enums.Error>;
-                            };
-                            switch (dto) {
-                                case (#LoanPlayer foundDTO) {
-                                    let _ = await application_canister.loanPlayerNotification(foundDTO);
-                                };
-                                case (_) {};
-                            };
-                        };
-                    };
-                    case (#RecallPlayer) {
-                        for (app in Iter.fromArray(defaultNotificationGroup)) {
-                            let ?appPrincipalId = BaseUtilities.getAppCanisterId(app) else {
-                                return #err(#FailedInterCanisterCall);
-                            };
-                            let application_canister = actor (appPrincipalId) : actor {
-                                recallPlayerNotification : (dto : PlayerNotificationCommands.PlayerChangeNotification) -> async Result.Result<(), Enums.Error>;
-                            };
-                            switch (dto) {
-                                case (#RecallPlayer foundDTO) {
-                                    let _ = await application_canister.recallPlayerNotification(foundDTO);
-                                };
-                                case (_) {};
-                            };
-                        };
-                    };
-                    case (#ExpireLoan) {
-                        for (app in Iter.fromArray(defaultNotificationGroup)) {
-
-                            let ?appPrincipalId = BaseUtilities.getAppCanisterId(app) else {
-                                return #err(#FailedInterCanisterCall);
-                            };
-                            let application_canister = actor (appPrincipalId) : actor {
-                                expireLoanNotification : (dto : PlayerNotificationCommands.PlayerChangeNotification) -> async Result.Result<(), Enums.Error>;
-                            };
-                            switch (dto) {
-                                case (#ExpireLoan foundDTO) {
-                                    let _ = await application_canister.expireLoanNotification(foundDTO);
-                                };
-                                case (_) {};
-                            };
-                        };
-                    };
-                    case (#TransferPlayer) {
-                        for (app in Iter.fromArray(defaultNotificationGroup)) {
-                            let ?appPrincipalId = BaseUtilities.getAppCanisterId(app) else {
-                                return #err(#FailedInterCanisterCall);
-                            };
-                            let application_canister = actor (appPrincipalId) : actor {
-                                transferPlayerNotification : (dto : PlayerNotificationCommands.PlayerChangeNotification) -> async Result.Result<(), Enums.Error>;
-                            };
-                            switch (dto) {
-                                case (#TransferPlayer foundDTO) {
-                                    let _ = await application_canister.transferPlayerNotification(foundDTO);
-                                };
-                                case (_) {};
-                            };
-                        };
-                    };
-                    case (#SetFreeAgent) {
-                        for (app in Iter.fromArray(defaultNotificationGroup)) {
-                            let ?appPrincipalId = BaseUtilities.getAppCanisterId(app) else {
-                                return #err(#FailedInterCanisterCall);
-                            };
-                            let application_canister = actor (appPrincipalId) : actor {
-                                setFreeAgentNotification : (dto : PlayerNotificationCommands.PlayerChangeNotification) -> async Result.Result<(), Enums.Error>;
-                            };
-                            switch (dto) {
-                                case (#SetFreeAgent foundDTO) {
-                                    let _ = await application_canister.setFreeAgentNotification(foundDTO);
-                                };
-                                case (_) {};
-                            };
-                        };
-                    };
-                    case (#RetirePlayer) {
-                        for (app in Iter.fromArray(defaultNotificationGroup)) {
-                            let ?appPrincipalId = BaseUtilities.getAppCanisterId(app) else {
-                                return #err(#FailedInterCanisterCall);
-                            };
-                            let application_canister = actor (appPrincipalId) : actor {
-                                retirePlayerNotification : (dto : PlayerNotificationCommands.PlayerChangeNotification) -> async Result.Result<(), Enums.Error>;
-                            };
-                            switch (dto) {
-                                case (#RetirePlayer foundDTO) {
-                                    let _ = await application_canister.retirePlayerNotification(foundDTO);
-                                };
-                                case (_) {};
-                            };
-                        };
-                    };
-                    case (#ChangePlayerPosition) {
-                        for (app in Iter.fromArray(defaultNotificationGroup)) {
-                            let ?appPrincipalId = BaseUtilities.getAppCanisterId(app) else {
-                                return #err(#FailedInterCanisterCall);
-                            };
-                            let application_canister = actor (appPrincipalId) : actor {
-                                changePlayerPositionNotification : (dto : PlayerNotificationCommands.PlayerChangeNotification) -> async Result.Result<(), Enums.Error>;
-                            };
-                            switch (dto) {
-                                case (#ChangePlayerPosition foundDTO) {
-                                    let _ = await application_canister.changePlayerPositionNotification(foundDTO);
-                                };
-                                case (_) {};
-                            };
-                        };
-                    };
-                    case (#CreateClub) {};
-                    case (#UpdateClub) {};
-                    case (#PromoteClub) {};
-                    case (#RelegateClub) {};
-                    case (#CreateLeague) {};
-                    case (#UpdateLeague) {};
-                    case (#CreatePlayer) {};
-                    case (#UpdatePlayer) {};
-                    case (#InjuryUpdated) {};
-                    case (#UnretirePlayer) {};
+                    case (#RoundBegun) {};
+                    case (#RoundComplete) {};
+                    case (#TournamentBegun) {};
+                    case (#TournamentComplete) {};
                 };
                 return #ok();
             } catch (e) {
@@ -284,7 +54,7 @@ module {
                     logType = #Error;
                     title = "Failed to distribute notification";
                     detail = message(e);
-                    error = ?#FailedInterCanisterCall;
+                    error = ?#CallFailed;
                 });
             };
         }

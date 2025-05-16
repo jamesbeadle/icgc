@@ -13,6 +13,8 @@ import List "mo:base/List";
 import ProfileQueries "../queries/profile-queries";
 import ProfileCommands "../commands/profile-commands";
 
+import T "../types";
+
 actor class _ProfileCanister() {
     let canisterManager = CanisterManager.CanisterManager();
 
@@ -87,7 +89,7 @@ actor class _ProfileCanister() {
         };
     };
 
-    public shared ({ caller }) func getProfileSummary(dto : ProfileQueries.GetProfile) : async Result.Result<ProfileQueries.ICGCProfileSummary, Enums.Error> {
+    public shared ({ caller }) func getProfileSummary(dto : ProfileQueries.GetProfile) : async Result.Result<ProfileQueries.Profile, Enums.Error> {
         assert not Principal.isAnonymous(caller);
         let backendPrincipalId = Principal.toText(caller);
         assert backendPrincipalId == CanisterIds.ICGC_BACKEND_CANISTER_ID;
@@ -127,6 +129,7 @@ actor class _ProfileCanister() {
             };
         };
     };
+    /* // TODO Make get subscriptions
 
     public shared ({ caller }) func getClaimedMembership(dto : ProfileQueries.GetClaimedMemberships) : async Result.Result<ProfileQueries.ClaimedMembershipsDTO, Enums.Error> {
         assert not Principal.isAnonymous(caller);
@@ -161,6 +164,8 @@ actor class _ProfileCanister() {
             };
         };
     };
+
+    */
 
     public shared ({ caller }) func createProfile(profilePrincipalId : Ids.PrincipalId, dto : ProfileCommands.CreateProfile, membership : T.EligibleMembership) : async Result.Result<(), Enums.Error> {
         assert not Principal.isAnonymous(caller);

@@ -66,7 +66,7 @@ module AppTypes {
     };
 
 
-     public type Golfer = 
+     public type Profile = 
     {
         id: Ids.PrincipalId;
         username: Text;

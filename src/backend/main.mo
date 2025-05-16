@@ -43,12 +43,9 @@ import PayoutCommands "commands/payout-commands";
 /* ----- Managers ----- */
 
 import ProfileManager "managers/profile-manager";
-import SNSManager "managers/sns-manager";
 
 /* ----- Environment ----- */
 import Environment "environment";
-import Utilities "utilities/utilities";
-import LeaderboardPayoutManager "managers/leaderboard-payout-manager";
 
 actor class Self() = this {
 

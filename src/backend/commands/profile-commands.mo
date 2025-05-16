@@ -3,6 +3,15 @@ import AppEnums "../enums";
 
 module ProfileCommands = {
 
+    public type CreateProfile = {
+        username: Text;
+        handicap: ?Float;
+    };
+
+    // TODO
+    //add create profile but remove the others as you don't link in here
+        //maybe you link back check with john
+
     public type LinkICGCProfile = {
         principalId : Ids.PrincipalId;
         icgcPrincipalId : Ids.PrincipalId;

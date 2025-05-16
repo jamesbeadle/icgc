@@ -31,13 +31,13 @@ import TrieMap "mo:base/TrieMap";
 
 /* ----- Commands ----- */
 
-import ProGolferCommands "commands/pro_golfer_commands";
-import GolfCourseCommands "commands/golf_course_commands";
-import TournamentCommands "commands/tournament_commands";
+import ProGolferCommands "commands/pro-golfer-commands";
+import GolfCourseCommands "commands/golf-course-commands";
+import TournamentCommands "commands/golf-tournament-commands";
 
 import Environment "environment";
-import AppQueries "queries/app_queries";
-import NotificationManager "managers/notification_manager";
+import AppQueries "queries/app-queries";
+import NotificationManager "managers/notification-manager";
 
 
 actor Self {
