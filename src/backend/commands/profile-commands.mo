@@ -1,5 +1,5 @@
 import Ids "mo:waterway-mops/base/ids";
-import AppEnums "../enums/app-enums";
+import AppEnums "../enums";
 
 module ProfileCommands = {
 

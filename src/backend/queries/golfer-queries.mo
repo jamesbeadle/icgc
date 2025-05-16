@@ -1,11 +1,11 @@
 
-import Types "../types";
 import Ids "mo:waterway-mops/base/ids";
+import AppIds "../ids";
 
 module GolferQueries {
     
     public type GetGolfer = {
-        golferId: Types.GolferId;
+        golferId: GolfIds.GolferId;
     };
 
     public type Golfer = {

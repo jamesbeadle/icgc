@@ -7,7 +7,7 @@ import Buffer "mo:base/Buffer";
 import GolferQueries "../queries/golfer-queries";
 import GolferCommands "../commands/golfer-commands";
 
-import Types "../types/app-types";
+import Types "../types";
 import Environment "../environment";
 module {
   public class GolferManager() {
